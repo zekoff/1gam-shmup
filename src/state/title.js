@@ -1,7 +1,6 @@
 /*global game*/
 module.exports = {
-    create:function(){
-        print('title');
+    create: function() {
         game.state.start('main');
     }
 };
