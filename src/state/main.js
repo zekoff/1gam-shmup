@@ -47,15 +47,14 @@ state.create = function() {
     enemy.anchor.set(0.5);
     enemy.x = 300;
     enemy.y = 50;
-    // game.add.tween(enemy).to({
-    //     y: 300,
-    //     x: 500
-    // }, 2000, Phaser.Easing.Sinusoidal.InOut, true, 0, -1, true);
     enemies.add(enemy);
 
     enemy.pathX = [100, 200, 400, 500, 550, 400, 200, 100];
     enemy.pathY = [50, 75, 150, 300, 200, 350, 100, 50];
     enemy.moveTimer = 0;
+    enemy.update = function() {
+        enemy.rotation = Phaser.Math.angleBetweenPoints(enemy.previousPosition, enemy);
+    };
 };
 
 state.update = function() {
