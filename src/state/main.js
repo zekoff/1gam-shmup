@@ -1,11 +1,13 @@
-/*global game,Phaser*/
+/* global game, shmup */
+var Stage = require('../util/stage');
 var state = {};
 
-var enemies, shots, enemy;
+var shots;
 
 state.create = function() {
     shots = game.add.physicsGroup();
-    enemies = game.add.physicsGroup();
+    shmup.enemies = game.add.group();
+    shmup.stage = new Stage();
 
     var background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
     background.update = function() {
@@ -41,31 +43,13 @@ state.create = function() {
             }
         }
     };
-
-    enemy = game.make.sprite(0, 0, 'pix');
-    enemy.height = enemy.width = 40;
-    enemy.anchor.set(0.5);
-    enemy.x = 300;
-    enemy.y = 50;
-    enemies.add(enemy);
-
-    enemy.pathX = [100, 200, 400, 500, 550, 400, 200, 100];
-    enemy.pathY = [50, 75, 150, 300, 200, 350, 100, 50];
-    enemy.moveTimer = 0;
-    enemy.update = function() {
-        enemy.rotation = Phaser.Math.angleBetweenPoints(enemy.previousPosition, enemy);
-    };
 };
 
 state.update = function() {
-    game.physics.arcade.overlap(enemies, shots, function(enemy, shot) {
+    shmup.stage.update();
+    game.physics.arcade.overlap(shmup.enemies, shots, function(enemy, shot) {
         shot.kill();
     });
-    enemy.moveTimer += game.time.physicsElapsed / 5;
-    if (enemy.moveTimer > 1) enemy.moveTimer = 0;
-    enemy.x = Phaser.Math.catmullRomInterpolation(enemy.pathX, enemy.moveTimer);
-    enemy.y = Phaser.Math.catmullRomInterpolation(enemy.pathY, enemy.moveTimer);
-    enemy.body.reset(enemy.x, enemy.y);
 };
 
 module.exports = state;

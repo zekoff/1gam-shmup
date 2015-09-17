@@ -1,4 +1,4 @@
-/*global game*/
+/* global game */
 module.exports = {
     preload: function() {
         game.load.baseURL = './assets/';
