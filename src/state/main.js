@@ -16,7 +16,7 @@ state.create = function() {
     var ship = game.add.sprite(0, 0, 'ship');
     game.physics.arcade.enable(ship);
     ship.anchor.set(0.5);
-    ship.scale.set(0.4);
+    ship.scale.set(0.5);
     ship.shotTimer = 0;
     ship.update = function() {
         ship.body.velocity.set(0);
