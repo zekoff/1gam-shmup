@@ -9,7 +9,14 @@ module.exports = {
     create: function() {
         game.load.image('ship');
         game.load.image('starfield');
-        game.load.image('laser','Lasers/laserGreen02.png');
+        game.load.image('laser', 'Lasers/laserGreen02.png');
+        var i, name;
+        ['Black', 'Blue', 'Green', 'Red'].forEach(function(color) {
+            for (i = 1; i < 6; i++) {
+                name = 'enemy' + color + i;
+                game.load.image(name, 'Enemies/' + name + '.png');
+            }
+        });
         game.load.start();
     },
     update: function() {
