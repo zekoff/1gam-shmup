@@ -11,10 +11,11 @@ var Stage = function(seed, difficulty) {
     this.movementPattern = game.rnd.pick(MovementTypes);
     // this.shotPattern = game.rnd.pick(ShotTypes);
     this.imageKey = game.rnd.pick(Enemy.prototype.IMAGE_KEYS);
+    this.healthRating = game.rnd.between(3, 9);
 };
 Stage.prototype = {};
 Stage.prototype.createEnemy = function() {
-    shmup.enemies.add(new Enemy(this.imageKey, .4, this.movementPattern));
+    shmup.enemies.add(new Enemy(this.imageKey, this.healthRating, this.movementPattern));
 };
 Stage.prototype.update = function() {
     this.timeToAdd += game.time.physicsElapsed;

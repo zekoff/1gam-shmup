@@ -31,13 +31,12 @@ state.create = function() {
     };
     shmup.ship = new Player();
     game.add.existing(shmup.ship);
-
-    game.camera.x = 200;
 };
 
 state.update = function() {
     shmup.stage.update();
     game.physics.arcade.overlap(shmup.enemies, shmup.playerBullets, function(enemy, shot) {
+        enemy.damage(1);
         shot.kill();
     });
 };
