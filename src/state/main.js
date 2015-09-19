@@ -6,6 +6,7 @@ var state = {};
 var background;
 
 state.create = function() {
+    shmup.enemyBullets = game.add.physicsGroup();
     shmup.playerBullets = game.add.physicsGroup();
     shmup.playerBullets.getBullet = function() {
         var shot = this.getFirstDead();
@@ -29,8 +30,8 @@ state.create = function() {
     background.update = function() {
         this.tilePosition.y += 1200 * game.time.physicsElapsed;
     };
-    shmup.ship = new Player();
-    game.add.existing(shmup.ship);
+    shmup.player = new Player();
+    game.add.existing(shmup.player);
 };
 
 state.update = function() {
@@ -38,6 +39,10 @@ state.update = function() {
     game.physics.arcade.overlap(shmup.enemies, shmup.playerBullets, function(enemy, shot) {
         enemy.damage(1);
         shot.kill();
+    });
+    game.physics.arcade.overlap(shmup.player, shmup.enemyBullets, function(player, shot) {
+        shot.kill();
+        print('ouch!');
     });
 };
 

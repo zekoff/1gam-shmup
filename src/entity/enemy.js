@@ -22,6 +22,7 @@ Enemy.prototype.IMAGE_KEYS = [];
 });
 
 Enemy.prototype.update = function() {
+    if (!this.alive) return;
     this.rotation = Phaser.Math.angleBetweenPoints(this.previousPosition, this) - (Math.PI / 2);
     this.moveUpdate();
     if (this.shotUpdate)
