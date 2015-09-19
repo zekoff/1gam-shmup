@@ -8,4 +8,8 @@ var spline = function() {
     this.y = Phaser.Math.catmullRomInterpolation(PATH_Y, this.moveTimer);
     this.body.reset(this.x, this.y);
 };
-module.exports = [spline];
+var divebomb = function() {
+    if (!this.x) this.x = game.rnd.between(100, 700);
+    this.y += 200 * game.time.physicsElapsed;
+};
+module.exports = [spline, divebomb];
