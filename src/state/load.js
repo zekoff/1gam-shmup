@@ -9,6 +9,7 @@ module.exports = {
     create: function() {
         game.load.image('ship');
         game.load.image('starfield');
+        game.load.image('laser','Lasers/laserGreen02.png');
         game.load.start();
     },
     update: function() {
