@@ -3,8 +3,8 @@ var getBullet = function() {
     var shot = shmup.enemyBullets.getFirstDead();
     if (!shot) {
         shot = game.make.sprite(0, 0, 'pix');
-        shot.width = 15;
-        shot.height = 15;
+        shot.width = 10;
+        shot.height = 10;
         shot.tint = 0xff0000;
         game.physics.arcade.enable(shot);
         shmup.enemyBullets.add(shot);

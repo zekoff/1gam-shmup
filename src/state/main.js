@@ -23,7 +23,7 @@ state.create = function() {
         return shot;
     };
     shmup.enemies = game.add.group();
-    shmup.stage = new Stage();
+    shmup.stage = new Stage('example', 2);
 
     background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
     background.fixedToCamera = true;
@@ -44,6 +44,10 @@ state.update = function() {
         shot.kill();
         print('ouch!');
     });
+};
+
+state.render = function() {
+    game.debug.body(shmup.player);
 };
 
 module.exports = state;

@@ -4,6 +4,7 @@ var Enemy = function(imageKey, healthRating, movementFunction, shotFunction) {
     Phaser.Sprite.call(this, game, 0, 0, imageKey);
     this.anchor.set(0.5);
     game.physics.arcade.enable(this);
+    this.body.setSize(this.body.width * .8, this.body.height * .8);
     this.checkWorldBounds = true;
     this.outOfBoundsKill = true;
     this.moveTimer = 0;
