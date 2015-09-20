@@ -3,7 +3,7 @@
 ## Todo
 
 - Add explosions
-- Add enemy shots
+- More enemy shot patterns
 - More enemy movement patterns
 - Set up stage flow
 - Add bosses
