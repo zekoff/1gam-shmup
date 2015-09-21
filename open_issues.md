@@ -4,11 +4,13 @@
 
 - Add explosions
 - More enemy shot patterns
-- More enemy movement patterns
-- Set up stage flow
+- Improve stage/wave flow
+- Improve use of stage difficulty
 - Add bosses
 - Improve player shooting physics
+- Add two more weapon types
 - Enemies drop powerups
+- Add lives/UI
 
 ## Bugs
 
