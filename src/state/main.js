@@ -1,6 +1,7 @@
 /* global game, shmup */
 var Stage = require('../util/stage');
 var Player = require('../entity/player');
+var Input = require('../util/input');
 var state = {};
 
 var background;
@@ -32,10 +33,12 @@ state.create = function() {
     };
     shmup.player = new Player();
     game.add.existing(shmup.player);
+    shmup.input = new Input(false);
 };
 
 state.update = function() {
     shmup.stage.update();
+    shmup.input.update();
     game.physics.arcade.overlap(shmup.enemies, shmup.playerBullets, function(enemy, shot) {
         enemy.damage(1);
         shot.kill();

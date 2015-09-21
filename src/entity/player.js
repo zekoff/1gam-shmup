@@ -5,39 +5,36 @@ var Player = function() {
     this.anchor.set(0.5);
     this.scale.set(0.5);
     this.shotTimer = 0;
-    this.body.setSize(this.body.width * .5, this.body.height * .25);
+    this.body.setSize(this.body.width * .7, this.body.height * .4, 0, 5);
+    this.body.collideWorldBounds = true;
 };
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
-Player.prototype.update = function() {
-    if (game.physics.arcade.distanceToPointer(this) > 10)
-        game.physics.arcade.moveToPointer(this,
-            game.input.activePointer.isDown ? 250 : 500);
-    else this.body.velocity.set(0);
-    if ((this.shotTimer += game.time.physicsElapsed) >= .12) {
-        this.shotTimer = 0;
-        var shot, i;
-        if (!game.input.activePointer.isDown) {
-            for (var i = -2; i < 3; i++) {
-                shot = shmup.playerBullets.getBullet();
-                shot.x = this.x + (10 * i);
-                shot.y = this.y;
-                shot.body.velocity.x = 120 * i;
-                shot.revive();
-            }
-        }
-        else {
-            for (var i = -2; i < 3; i++) {
-                shot = shmup.playerBullets.getBullet();
-                shot.x = this.x + (5 * i);
-                shot.y = this.y;
-                shot.body.velocity.x = 15 * i;
-                shot.revive();
-            }
-
+Player.prototype.FAST_SPEED = 500;
+Player.prototype.SLOW_SPEED = 250;
+Player.prototype.update = function() {};
+Player.prototype.shoot = function(spread) {
+    this.shotTimer = 0;
+    var shot, i;
+    if (spread) {
+        for (var i = -2; i < 3; i++) {
+            shot = shmup.playerBullets.getBullet();
+            shot.x = this.x + (10 * i);
+            shot.y = this.y;
+            shot.body.velocity.x = 120 * i;
+            shot.revive();
         }
     }
+    else {
+        for (var i = -2; i < 3; i++) {
+            shot = shmup.playerBullets.getBullet();
+            shot.x = this.x + (5 * i);
+            shot.y = this.y;
+            shot.body.velocity.x = 15 * i;
+            shot.revive();
+        }
 
+    }
 };
 
 module.exports = Player;

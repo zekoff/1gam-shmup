@@ -9,3 +9,7 @@
 - Add bosses
 - Improve player shooting physics
 - Enemies drop powerups
+
+## Bugs
+
+- Player bullets are spawning correctly sometimes. Problem with the bullet pool?
