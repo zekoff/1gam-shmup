@@ -16,11 +16,4 @@
 
 ## Bugs
 
-- Player bullets are spawning incorrectly sometimes. Problem with the bullet pool?
-(This is probably because they are spawning or otherwise starting at (0,0) or their
-last location, which is currenty occupied by some enemy's physics body, which causes
-the collision callback to run and then they don't appear firing from the gun.)
-
 ## Commit message
-
-Improve feel of mouse control. Fix player bullet angles.

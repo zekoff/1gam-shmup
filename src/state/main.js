@@ -19,7 +19,6 @@ state.create = function() {
             shot.checkWorldBounds = true;
             shot.outOfBoundsKill = true;
             shmup.playerBullets.add(shot);
-            // shot.body.velocity.y = -600;
         }
         return shot;
     };

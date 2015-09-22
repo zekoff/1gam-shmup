@@ -18,19 +18,13 @@ Player.prototype.update = function() {};
 Player.prototype.shoot = function(alternate) {
     this.shotTimer = 0;
     var shot, i;
-    var offset, spread;
-    if (alternate) {
-        offset = 10;
-        spread = 15;
-    }
-    else {
-        offset = 5;
-        spread = 2;
-    }
+    var offset = alternate ? 10 : 5;
+    var spread = alternate ? 15 : 2;
     for (var i = -this.weaponLevels[0]; i < this.weaponLevels[0] + 1; i++) {
         shot = shmup.playerBullets.getBullet();
         shot.x = this.x + (offset * i);
         shot.y = this.y;
+        shot.body.reset(shot.x, shot.y);
         shot.body.velocity.x = spread * i;
         game.physics.arcade.velocityFromAngle(-90 + (spread * i), 500, shot.body.velocity);
         shot.revive();
