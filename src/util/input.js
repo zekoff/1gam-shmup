@@ -5,7 +5,11 @@ var MOUSE_INPUT = function() {
         game.physics.arcade.moveToPointer(shmup.player,
             game.input.activePointer.isDown ?
             shmup.player.SLOW_SPEED : shmup.player.FAST_SPEED);
-    else shmup.player.body.velocity.set(0);
+    else {
+        shmup.player.body.velocity.set(0);
+        shmup.player.x = game.input.activePointer.x;
+        shmup.player.y = game.input.activePointer.y;
+    }
     if ((shmup.player.shotTimer += game.time.physicsElapsed) >= .12) {
         shmup.player.shoot(!game.input.activePointer.isDown);
     }

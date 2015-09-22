@@ -8,7 +8,7 @@ var Player = function() {
     this.body.setSize(this.body.width * .7, this.body.height * .4, 0, 5);
     this.body.collideWorldBounds = true;
 
-    this.weaponLevels = [3, 1, 1];
+    this.weaponLevels = [4, 1, 1];
 };
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
@@ -34,7 +34,9 @@ Player.prototype.shoot = function(alternate) {
         shot.body.velocity.x = spread * i;
         game.physics.arcade.velocityFromAngle(-90 + (spread * i), 500, shot.body.velocity);
         shot.revive();
-        // shot.rotation = Phaser.Math.angleBetweenPoints(shot.previousPosition, shot) - (Math.PI / 2);
+        shot.update = function() {
+            this.rotation = Phaser.Math.angleBetweenPoints(this.previousPosition, this) - (Math.PI / 2);
+        };
     }
 };
 
