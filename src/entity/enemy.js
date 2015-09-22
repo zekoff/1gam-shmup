@@ -8,6 +8,8 @@ var Enemy = function(imageKey, healthRating, movementFunction, shotFunction) {
     this.checkWorldBounds = true;
     this.outOfBoundsKill = true;
     this.moveTimer = 0;
+    this.speedFactor = healthRating / 3; // higher speed factor is slower (?)
+    this.speedFactor *= 0.5;
     this.shotTimer = 0;
     this.scale.set(healthRating / 10);
     this.health = healthRating * healthRating / 2;

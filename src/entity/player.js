@@ -8,7 +8,7 @@ var Player = function() {
     this.body.setSize(this.body.width * .7, this.body.height * .4, 0, 5);
     this.body.collideWorldBounds = true;
 
-    this.weaponLevels = [4, 1, 1];
+    this.weaponLevels = [2, 1, 1];
 };
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;

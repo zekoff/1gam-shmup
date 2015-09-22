@@ -7,7 +7,6 @@
 - Improve stage/wave flow
 - Improve use of stage difficulty
 - Add bosses
-- Improve player shooting physics
 - Add two more weapon types
 - Enemies drop powerups
 - Add lives/UI
