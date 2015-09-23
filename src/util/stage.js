@@ -2,13 +2,14 @@
 var Enemy = require('../entity/enemy');
 var MovementTypes = require('../util/movement');
 var ShotTypes = require('../util/shot');
+var Boss = require('../entity/boss');
 
 var Stage = function(seed, difficulty) {
     game.rnd.sow([seed]);
     this.waves = [];
-    for (var i = 0; i < 15; i++)
+    for (var i = 0; i < 1; i++)
         this.waves.push(new Wave(difficulty));
-
+    this.waves.push(new BossWave(5));
     // XXX temp
     this.updateTimer = 0;
     game.rnd.sow(new Date().toString());
@@ -20,6 +21,7 @@ Stage.prototype.update = function() {
 
     // XXX temp
     this.updateTimer += game.time.physicsElapsed;
+    if (this.waves.length == 1) return;
     if (this.updateTimer > 5) {
         this.waves.shift();
         this.updateTimer = 0;
@@ -49,6 +51,19 @@ Wave.prototype.update = function() {
             this.movementPattern, this.shotPattern);
         shmup.enemies.add(enemy);
         this.enemies.push(enemy);
+    }
+};
+
+var BossWave = function(difficulty) {
+    this.init = false;
+    this.difficulty = difficulty;
+};
+BossWave.prototype = {};
+BossWave.prototype.constructor = BossWave;
+BossWave.prototype.update = function() {
+    if (!this.init) {
+        this.init = true;
+        shmup.enemies.add(new Boss(this.difficulty));
     }
 };
 

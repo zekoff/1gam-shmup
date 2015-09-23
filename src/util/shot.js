@@ -32,6 +32,7 @@ var aimed = function() {
         this.shotTimer = 0;
         var shot = getBullet();
         shot.tint = 0xff80ff;
+        shot.height = shot.width = 15;
         shot.x = this.x;
         shot.y = this.y;
         shot.body.reset(shot.x, shot.y);
@@ -54,7 +55,7 @@ var fatAimed = function() {
         game.physics.arcade.moveToObject(shot, shmup.player, 200);
     }
 };
-var burstAimed = function() {
+var burst = function() {
     this.shotTimer += game.time.physicsElapsed;
     if (this.shotTimer > 1 && game.rnd.frac() < 0.01) {
         this.shotTimer = 0;
@@ -94,5 +95,9 @@ var doubleStraight = function() {
         shot.body.velocity.y = 250;
     }
 };
+var lead = function() {
+    this.shotTimer += game.time.physicsElapsed;
+    // aim where player will be
+};
 
-module.exports = [straight, aimed, fatAimed, burstAimed, doubleStraight];
+module.exports = [straight, aimed, fatAimed, burst, doubleStraight];
