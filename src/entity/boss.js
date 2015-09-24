@@ -13,6 +13,13 @@ var getBullet = function() {
     return shot;
 };
 
+var createRandomLocationTween = function(target, tween) {
+    tween.to({
+        x: game.rnd.between(100, 700),
+        y: game.rnd.between(20, 300)
+    }, 1000, null, true);
+};
+
 var Boss = function(difficulty) {
     Phaser.Sprite.call(this, game, 400, 0, game.rnd.pick(Enemy.prototype.IMAGE_KEYS));
     shmup.enemies.add(this);
@@ -24,7 +31,7 @@ var Boss = function(difficulty) {
     this.moveTween = null;
     this.shotTimer = 0;
     this.scale.set(1.5);
-    this.health = difficulty * 100; // shot-in-the-dark for balance
+    this.maxHealth = this.health = difficulty * 100; // shot-in-the-dark for balance
 };
 Boss.prototype = Object.create(Phaser.Sprite.prototype);
 Boss.prototype.constructor = Boss;
@@ -32,16 +39,35 @@ Boss.prototype.INIT = 0;
 Boss.prototype.PAN = 1;
 Boss.prototype.RANDOM = 2;
 Boss.prototype.update = function() {
+    if (!this.alive) return; // seems like this should be the default behavior in Phaser...
     // handle movement based on move state / health
     switch (this.moveState) {
         case this.INIT:
-            this.y += 30 * game.time.physicsElapsed;
-            if (this.y >= 150) this.moveState = this.PAN;
+            if (this.y < 150) this.y += 30 * game.time.physicsElapsed;
+            if (this.health < this.maxHealth * .7) this.moveState = this.PAN;
             break;
         case this.PAN:
-
+            if (!this.moveTween) {
+                this.moveTween = game.tweens.create(this);
+                this.moveTween.to({
+                    x: 650
+                }, 3000, null, false, 0, -1, true);
+                game.add.tween(this).to({
+                    x: 150
+                }, 1500, null, true).chain(this.moveTween);
+            }
+            if (this.health < this.maxHealth * .35) {
+                this.moveTween.stop();
+                this.moveTween = null;
+                this.moveState = this.RANDOM;
+            }
             break;
         case this.RANDOM:
+            if (!this.moveTween) {
+                this.moveTween = game.add.tween(this);
+                this.moveTween.onComplete.add(createRandomLocationTween);
+                createRandomLocationTween(null, this.moveTween);
+            }
             break;
     }
     // shoot based on boss pattern
