@@ -1,18 +1,6 @@
 /* global game, Phaser, shmup */
 var Enemy = require('./enemy');
 
-var getBullet = function() {
-    var shot = shmup.enemyBullets.getFirstDead();
-    if (!shot) {
-        shot = game.make.sprite(0, 0, 'pix');
-        shot.checkWorldBounds = true;
-        shot.outOfBoundsKill = true;
-        game.physics.arcade.enable(shot);
-        shmup.enemyBullets.add(shot);
-    }
-    return shot;
-};
-
 var createRandomLocationTween = function(target, tween) {
     tween.to({
         x: game.rnd.between(100, 700),
@@ -75,7 +63,7 @@ Boss.prototype.update = function() {
     if (this.shotTimer > 0.5) {
         // add shots
         this.shotTimer = 0;
-        var shot = getBullet();
+        var shot = shmup.enemyBullets.getBullet();
         shot.tint = 0xff80ff;
         shot.x = this.x;
         shot.y = this.y;

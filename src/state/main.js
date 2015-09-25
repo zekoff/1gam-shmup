@@ -2,34 +2,15 @@
 var Stage = require('../util/stage');
 var Player = require('../entity/player');
 var Input = require('../util/input');
+var BulletPool = require('../util/bulletpool');
 var state = {};
 
-var background;
-
 state.create = function() {
-    shmup.enemyBullets = game.add.physicsGroup();
-    shmup.playerBullets = game.add.physicsGroup();
-    shmup.playerBullets.getBullet = function() {
-        var shot = this.getFirstDead();
-        if (!shot) {
-            shot = game.make.sprite(this.x, this.y, 'laser');
-            shot.height = 24;
-            shot.width = 8;
-            shot.anchor.set(0.5);
-            shot.checkWorldBounds = true;
-            shot.outOfBoundsKill = true;
-            shmup.playerBullets.add(shot);
-        }
-        return shot;
-    };
+    shmup.enemyBullets = new BulletPool('pix');
+    shmup.playerBullets = new BulletPool('laser');
     shmup.enemies = game.add.group();
     shmup.stage = new Stage('example', 2);
 
-    background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
-    background.fixedToCamera = true;
-    background.update = function() {
-        this.tilePosition.y += 1200 * game.time.physicsElapsed;
-    };
     shmup.player = new Player();
     game.add.existing(shmup.player);
     shmup.input = new Input(false);

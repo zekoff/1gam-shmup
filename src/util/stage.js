@@ -6,6 +6,8 @@ var Boss = require('../entity/boss');
 
 var Stage = function(seed, difficulty) {
     game.rnd.sow([seed]);
+    this.background = game.add.tileSprite(0,0,800,600,'starfield');
+    this.background.fixedToCamera = true;
     this.waves = [];
     for (var i = 0; i < 1; i++)
         this.waves.push(new Wave(difficulty));
@@ -17,6 +19,7 @@ var Stage = function(seed, difficulty) {
 Stage.prototype = {};
 Stage.prototype.constructor = Stage;
 Stage.prototype.update = function() {
+    this.background.tilePosition.y += 1200 * game.time.physicsElapsed;
     this.waves[0].update();
 
     // XXX temp
