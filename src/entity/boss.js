@@ -10,7 +10,6 @@ var createRandomLocationTween = function(target, tween) {
 
 var Boss = function(difficulty) {
     Phaser.Sprite.call(this, game, 400, 0, game.rnd.pick(Enemy.prototype.IMAGE_KEYS));
-    shmup.enemies.add(this);
     this.anchor.set(0.5);
     game.physics.arcade.enable(this);
     this.body.setSize(this.body.width * .7, this.body.height * .7);

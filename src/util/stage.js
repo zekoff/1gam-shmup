@@ -20,7 +20,6 @@ var Stage = function(seed, difficulty) {
 
     // XXX temp
     this.updateTimer = 0;
-    game.rnd.sow(new Date().toString());
 
     this.stageState = this.INTRO;
     this.stateTween = null;
@@ -72,6 +71,7 @@ Stage.prototype.update = function() {
             break;
         case this.OUTTRO:
             if (!this.stateTween) {
+                shmup.enemyBullets.callAll('kill');
                 shmup.player.body.reset(shmup.player.x, shmup.player.y);
                 shmup.input.inputDisabled = true;
                 this.stateTween = game.add.tween(shmup.player);
@@ -125,14 +125,14 @@ Wave.prototype.update = function() {
 
 var BossWave = function(difficulty) {
     this.init = false;
-    this.difficulty = difficulty;
+    this.boss = new Boss(difficulty);
 };
 BossWave.prototype = {};
 BossWave.prototype.constructor = BossWave;
 BossWave.prototype.update = function() {
     if (!this.init) {
         this.init = true;
-        shmup.enemies.add(new Boss(this.difficulty));
+        shmup.enemies.add(this.boss);
     }
 };
 
