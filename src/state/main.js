@@ -3,9 +3,11 @@ var Stage = require('../util/stage');
 var Player = require('../entity/player');
 var Input = require('../util/input');
 var BulletPool = require('../util/bulletpool');
+var Emitter = require('../entity/emitter');
 var state = {};
 
 state.create = function() {
+    shmup.emitter = new Emitter();
     shmup.enemyBullets = new BulletPool('pix');
     shmup.playerBullets = new BulletPool('laser');
     shmup.enemies = game.add.group();
@@ -13,7 +15,7 @@ state.create = function() {
 
     shmup.player = new Player();
     game.add.existing(shmup.player);
-    shmup.input = new Input(false);
+    shmup.input = new Input();
 };
 
 state.update = function() {

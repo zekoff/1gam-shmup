@@ -19,6 +19,14 @@ var Boss = function(difficulty) {
     this.shotTimer = 0;
     this.scale.set(1.5);
     this.maxHealth = this.health = difficulty * 100; // shot-in-the-dark for balance
+    this.events.onKilled.add(function() {
+        var rect = new Phaser.Rectangle(this.left, this.top, this.width, this.height);
+        var p = new Phaser.Point();
+        for (var i = 0; i < 5; i++) {
+            rect.random(p);
+            shmup.emitter.burst(p.x, p.y);
+        }
+    }, this);
 };
 Boss.prototype = Object.create(Phaser.Sprite.prototype);
 Boss.prototype.constructor = Boss;

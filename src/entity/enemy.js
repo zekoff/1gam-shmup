@@ -1,4 +1,4 @@
-/* global game, Phaser */
+/* global game, Phaser, shmup */
 
 var Enemy = function(imageKey, healthRating, movementFunction, shotFunction) {
     Phaser.Sprite.call(this, game, 0, 0, imageKey);
@@ -16,6 +16,9 @@ var Enemy = function(imageKey, healthRating, movementFunction, shotFunction) {
     this.moveUpdate = movementFunction.bind(this);
     if (shotFunction)
         this.shotUpdate = shotFunction.bind(this);
+    this.events.onKilled.add(function() {
+        shmup.emitter.burst(this.x, this.y);
+    }, this);
 };
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);
 Enemy.prototype.constructor = Enemy;

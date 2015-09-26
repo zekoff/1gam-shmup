@@ -12,8 +12,8 @@ var Player = function() {
 };
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
-Player.prototype.FAST_SPEED = 500;
-Player.prototype.SLOW_SPEED = 250;
+Player.prototype.FAST_SPEED = 350;
+Player.prototype.SLOW_SPEED = 150;
 Player.prototype.update = function() {};
 Player.prototype.shoot = function(alternate) {
     this.shotTimer = 0;
