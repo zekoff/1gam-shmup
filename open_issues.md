@@ -16,4 +16,6 @@
 
 ## Bugs
 
+- Stage outtro flyout animation doesn't work
+
 ## Commit message
