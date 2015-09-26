@@ -1,6 +1,7 @@
 /* global game, shmup, Phaser */
 var DEADZONE = .1;
 var MOUSE_INPUT = function() {
+    if (this.inputDisabled) return;
     if (game.physics.arcade.distanceToPointer(shmup.player) > 10)
         game.physics.arcade.moveToPointer(shmup.player,
             game.input.activePointer.isDown ?
@@ -15,6 +16,7 @@ var MOUSE_INPUT = function() {
     }
 };
 var GAMEPAD_INPUT = function() {
+    if (this.inputDisabled) return;
     if ((shmup.player.shotTimer += game.time.physicsElapsed) >= .12)
         shmup.player.shoot(!this.pad.isDown(Phaser.Gamepad.XBOX360_A));
 
