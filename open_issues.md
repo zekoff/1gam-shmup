@@ -11,11 +11,8 @@
 - Enemies drop powerups
 - Add lives/UI
 - Add stage select
-- Add intro/outro to stages
 - UFOs as bonus opportunities
 
 ## Bugs
-
-- Stage outtro flyout animation doesn't work
 
 ## Commit message

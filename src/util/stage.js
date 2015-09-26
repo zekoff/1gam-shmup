@@ -5,17 +5,19 @@ var ShotTypes = require('../util/shot');
 var Boss = require('../entity/boss');
 
 var INTRO_LENGTH = 4000;
+var OUTRO_LENGTH = 4000;
+var WARP_SPEED = 3000;
 
 var Stage = function(seed, difficulty) {
     game.rnd.sow([seed]);
     this.background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
     this.background.fixedToCamera = true;
-    this.backgroundSpeed = 3000;
+    this.backgroundSpeed = WARP_SPEED;
     this.waves = [];
     for (var i = 0; i < 1; i++)
         this.waves.push(new Wave(difficulty));
     this.waves.push(new BossWave(1));
-    
+
     // XXX temp
     this.updateTimer = 0;
     game.rnd.sow(new Date().toString());
@@ -39,18 +41,18 @@ Stage.prototype.update = function() {
                 this.stateTween = game.add.tween(shmup.player);
                 this.stateTween.to({
                     y: 300
-                }, INTRO_LENGTH / 2, Phaser.Easing.Sinusoidal.Out, true);
-                var chainTween = game.add.tween(shmup.player);
-                chainTween.to({
+                }, INTRO_LENGTH / 2, Phaser.Easing.Sinusoidal.Out);
+                this.stateTween.to({
                     y: 500
                 }, INTRO_LENGTH / 2, Phaser.Easing.Sinusoidal.InOut);
-                this.stateTween.chain(chainTween);
-                chainTween.onComplete.add(function() {
+                this.stateTween.onComplete.add(function() {
                     shmup.input.inputDisabled = false;
                     this.stageState = this.MAIN;
+                    this.stateTween = null;
                 }, this);
+                this.stateTween.start();
                 game.add.tween(this).to({
-                    backgroundSpeed: 1000
+                    backgroundSpeed: 600
                 }, INTRO_LENGTH, null, true);
             }
             break;
@@ -69,15 +71,28 @@ Stage.prototype.update = function() {
             }
             break;
         case this.OUTTRO:
-            shmup.player.body.velocity.set(0);
-            this.stateTween = game.add.tween(shmup.player);
-            this.stateTween.to({
-                y: 0
-            }, 3000, null, true);
-            this.stateTween.onComplete.add(function() {
-                print('done');
-            });
-            shmup.input.inputDisabled = true;
+            if (!this.stateTween) {
+                shmup.player.body.reset(shmup.player.x, shmup.player.y);
+                shmup.input.inputDisabled = true;
+                this.stateTween = game.add.tween(shmup.player);
+                this.stateTween.to({
+                    x: 400,
+                    y: 500
+                }, OUTRO_LENGTH / 2, Phaser.Easing.Sinusoidal.Out);
+                this.stateTween.to({
+                    y: 0
+                }, OUTRO_LENGTH / 2, Phaser.Easing.Sinusoidal.In);
+                game.time.events.add(OUTRO_LENGTH / 2, function() {
+                    game.add.tween(this).to({
+                        backgroundSpeed: WARP_SPEED
+                    }, OUTRO_LENGTH / 2, null, true);
+                }, this);
+                this.stateTween.start();
+                this.stateTween.onComplete.add(function() {
+                    print('done');
+                    // XXX start stage end state
+                });
+            }
             break;
     }
 };
