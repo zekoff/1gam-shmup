@@ -22,10 +22,11 @@ var Boss = function(difficulty) {
     this.events.onKilled.add(function() {
         var rect = new Phaser.Rectangle(this.left, this.top, this.width, this.height);
         var p = new Phaser.Point();
-        for (var i = 0; i < 5; i++) {
+        for (var i = 0; i < 10; i++) {
             rect.random(p);
             shmup.emitter.burst(p.x, p.y);
         }
+        game.sound.play('boss_explode', 0.3);
     }, this);
 };
 Boss.prototype = Object.create(Phaser.Sprite.prototype);

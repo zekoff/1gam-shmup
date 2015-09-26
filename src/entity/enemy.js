@@ -17,7 +17,9 @@ var Enemy = function(imageKey, healthRating, movementFunction, shotFunction) {
     if (shotFunction)
         this.shotUpdate = shotFunction.bind(this);
     this.events.onKilled.add(function() {
+        if (this.health > 0) return;
         shmup.emitter.burst(this.x, this.y);
+        game.sound.play('explode' + game.rnd.between(1, 6), 0.2);
     }, this);
 };
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);

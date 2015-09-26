@@ -4,25 +4,37 @@ var MovementTypes = require('../util/movement');
 var ShotTypes = require('../util/shot');
 var Boss = require('../entity/boss');
 
+var MUSIC_TRACKS = [
+    'burning_engines',
+    'challenge',
+    'downtown',
+    'ftl',
+    'grand_prix'
+];
+var MUSIC_VOLUME = 0.1;
+
 var INTRO_LENGTH = 4000;
 var OUTRO_LENGTH = 4000;
 var WARP_SPEED = 3000;
 
 var Stage = function(seed, difficulty) {
     game.rnd.sow([seed]);
+    this.trackName = game.rnd.pick(MUSIC_TRACKS);
     this.background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
     this.background.fixedToCamera = true;
     this.backgroundSpeed = WARP_SPEED;
     this.waves = [];
-    for (var i = 0; i < 1; i++)
+    for (var i = 0; i < 20; i++)
         this.waves.push(new Wave(difficulty));
-    this.waves.push(new BossWave(1));
+    this.waves.push(new BossWave(5));
 
     // XXX temp
     this.updateTimer = 0;
 
     this.stageState = this.INTRO;
     this.stateTween = null;
+    if (shmup.music) shmup.music.stop();
+    shmup.music = game.sound.play(this.trackName, MUSIC_VOLUME, true);
 };
 Stage.prototype = {};
 Stage.prototype.constructor = Stage;
