@@ -1,5 +1,9 @@
 # Open Issues
 
+## Currently working
+
+Refactor player weapons and add more.
+
 ## Todo
 
 - More enemy shot and movement patterns

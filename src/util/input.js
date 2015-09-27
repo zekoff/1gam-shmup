@@ -11,14 +11,16 @@ var MOUSE_INPUT = function() {
         shmup.player.x = game.input.activePointer.x;
         shmup.player.y = game.input.activePointer.y;
     }
-    if ((shmup.player.shotTimer += game.time.physicsElapsed) >= .12) {
-        shmup.player.shoot(!game.input.activePointer.isDown);
-    }
+    // if ((shmup.player.shotTimer += game.time.physicsElapsed) >= .12) {
+    //     shmup.player.shoot(!game.input.activePointer.isDown);
+    // }
+    shmup.player.alternateFire = game.input.activePointer.isDown;
 };
 var GAMEPAD_INPUT = function() {
     if (this.inputDisabled) return;
-    if ((shmup.player.shotTimer += game.time.physicsElapsed) >= .12)
-        shmup.player.shoot(!this.pad.isDown(Phaser.Gamepad.XBOX360_A));
+    shmup.player.alternateFire = this.pad.isDown(Phaser.Gamepad.XBOX360_A);
+    // if ((shmup.player.shotTimer += game.time.physicsElapsed) >= .12)
+    //     shmup.player.shoot(!this.pad.isDown(Phaser.Gamepad.XBOX360_A));
 
     if (!game.input.gamepad.supported || !game.input.gamepad.active ||
         !this.pad.connected) return;

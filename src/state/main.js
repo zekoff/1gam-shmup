@@ -15,7 +15,7 @@ state.create = function() {
 
     shmup.player = new Player();
     game.add.existing(shmup.player);
-    shmup.input = new Input(true);
+    shmup.input = new Input();
     
     // game.input.onUp.addOnce(function(){
     //     game.scale.startFullScreen();
