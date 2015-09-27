@@ -12,7 +12,6 @@
 - Add stage select
 - UFOs as bonus opportunities
 - Add coins/medals/bonus point pickups
-- Add music/sounds
 - Add scoring system
 - Add fullscreen mode
 

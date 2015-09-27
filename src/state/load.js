@@ -29,6 +29,7 @@ module.exports = {
             game.load.audio(name, 'Sounds/' + name + '.ogg');
         }
         game.load.audio('boss_explode', 'Sounds/boss_explode.ogg');
+        game.load.bitmapFont('font','font.png','font.fnt');
         game.load.start();
     },
     update: function() {

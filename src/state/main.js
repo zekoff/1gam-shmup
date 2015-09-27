@@ -20,6 +20,8 @@ state.create = function() {
     // game.input.onUp.addOnce(function(){
     //     game.scale.startFullScreen();
     // });
+    
+    game.add.bitmapText(0,0,'font','TESTING BITMAP FONT',32);
 };
 
 state.update = function() {
