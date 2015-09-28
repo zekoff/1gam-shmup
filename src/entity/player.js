@@ -12,6 +12,8 @@ var Player = function() {
     this.weaponLevels = [2, 4, 1];
     this.currentWeapon = 0;
     this.weaponUpdate = this.weapons[this.currentWeapon].bind(this);
+    this.chargeTime = 0;
+    this.lastFrameCharging = false;
 };
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
@@ -54,17 +56,41 @@ var shotgun = function(alternate) {
 // Fast frontal weapon. Alternate fire charges a big shot.
 // Powerup decreases time between shots
 var gatling = function(alternate) {
+    var shot;
+    if (!alternate && this.lastFrameCharging) {
+        this.lastFrameCharging = false;
+        if (this.chargeTime > 1.5) this.chargeTime = 1.5;
+        shot = shmup.playerBullets.getBullet();
+        shot.x = this.x;
+        shot.y = this.y;
+        shot.body.reset(shot.x, shot.y);
+        shot.body.velocity.y = -800;
+        shot.revive();
+        shot.rotation = 0;
+        shot.update = function() {};
+        shot.frame = 2;
+        shot.power = this.chargeTime * 300;
+        shot.height = 96 * this.chargeTime;
+        shot.width = 48 * this.chargeTime;
+        this.chargeTime = 0;
+        return;
+    }
+    if (alternate) {
+        this.chargeTime += game.time.physicsElapsed;
+        this.lastFrameCharging = true;
+        return;
+    }
+    this.lastFrameCharging = false;
     var fireSpeed = .1 - this.weaponLevels[1] / 100 * 2;
     if (this.shotTimer < fireSpeed) return;
     this.shotTimer -= fireSpeed;
-    var shot = shmup.playerBullets.getBullet();
+    shot = shmup.playerBullets.getBullet();
     shot.x = this.x + (game.rnd.between(-20, 20));
     shot.y = this.y;
     shot.body.reset(shot.x, shot.y);
     shot.body.velocity.y = -800;
     shot.revive();
     shot.rotation = 0;
-    shot.angle = 0;
     shot.update = function() {};
     shot.frame = 2;
     shot.power = 10;
@@ -82,9 +108,8 @@ var missile = function(alternate) {
     shot.body.reset(shot.x, shot.y);
     shot.revive();
     shot.rotation = 0;
-    shot.angle = 0;
     shot.frame = 0;
-    shot.power = 50;
+    shot.power = this.weaponLevels[2] * 16;
     shot.update = function() {};
     if (alternate) {
         shot.angle = game.rnd.between(-15, 15);
