@@ -39,11 +39,6 @@ state.update = function() {
 
 state.render = function() {
     game.debug.body(shmup.player);
-    shmup.playerBullets.forEachAlive(function(b) {
-        if (b.debugLine) {
-            game.debug.geom(b.debugLine, '#0f0');
-        }
-    });
 };
 
 module.exports = state;

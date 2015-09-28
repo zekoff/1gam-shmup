@@ -13,7 +13,7 @@ var MUSIC_TRACKS = [
 ];
 var MUSIC_VOLUME = 0.1;
 
-var INTRO_LENGTH = 4000;
+var INTRO_LENGTH = 400;
 var OUTRO_LENGTH = 4000;
 var WARP_SPEED = 3000;
 
@@ -24,7 +24,7 @@ var Stage = function(seed, difficulty) {
     this.background.fixedToCamera = true;
     this.backgroundSpeed = WARP_SPEED;
     this.waves = [];
-    for (var i = 0; i < 1; i++)
+    for (var i = 0; i < 15; i++)
         this.waves.push(new Wave(difficulty));
     this.waves.push(new BossWave(5));
 

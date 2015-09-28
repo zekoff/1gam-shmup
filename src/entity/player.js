@@ -75,33 +75,31 @@ var missile = function(alternate) {
     shot.angle = 0;
     shot.update = function() {};
     if (alternate) {
-        // dumb fire rockets
-        game.physics.arcade.velocityFromAngle(-90 + game.rnd.between(-15, 15), 300, shot.body.velocity);
+        shot.angle = game.rnd.between(-15, 15);
+        game.physics.arcade.velocityFromAngle(-90 + shot.angle, 300, shot.body.velocity);
     }
     else {
-        // seeking missiles
-        game.physics.arcade.velocityFromAngle(-90 + game.rnd.between(-30, 30), 300, shot.body.velocity);
-        shot.debugLine = new Phaser.Line();
+        shot.angle = game.rnd.between(-30, 30);
+        game.physics.arcade.velocityFromAngle(-90 + shot.angle, 300, shot.body.velocity);
         shot.update = function() {
             var turnRate = Math.PI / 4;
             var closestDistance = 10000;
             var closestEnemy = null;
             shmup.enemies.forEachAlive(function(enemy) {
-                var seekDistance = 200;
+                var seekDistance = 300;
                 var dist = game.physics.arcade.distanceBetween(enemy, this);
                 if (dist < seekDistance && dist < closestDistance)
                     closestEnemy = enemy;
             }, this);
             if (closestEnemy) {
-                var targetRotation = -90 + game.physics.arcade.angleBetween(closestEnemy, this);
+                var targetRotation = -Math.PI / 2 + game.physics.arcade.angleBetween(closestEnemy, this);
                 if (this.rotation !== targetRotation) {
                     var delta = targetRotation - this.rotation;
                     if (delta > 0) this.rotation += turnRate * game.time.physicsElapsed;
                     else this.rotation -= turnRate * game.time.physicsElapsed;
                 }
-                if (Math.abs(delta) < turnRate) this.rotation = targetRotation;
+                if (Math.abs(delta) < turnRate * game.time.physicsElapsed) this.rotation = targetRotation;
                 game.physics.arcade.velocityFromRotation(-Math.PI / 2 + this.rotation, 300, this.body.velocity);
-                this.debugLine.fromSprite(this, closestEnemy);
             }
         };
     }
