@@ -9,7 +9,7 @@ var Player = function() {
     this.body.collideWorldBounds = true;
 
     this.weapons = [shotgun, gatling, missile];
-    this.weaponLevels = [2, 4, 1];
+    this.weaponLevels = [4, 4, 4];
     this.currentWeapon = 0;
     this.weaponUpdate = this.weapons[this.currentWeapon].bind(this);
     this.chargeTime = 0;
@@ -31,19 +31,20 @@ Player.prototype.cycleWeapon = function() {
 // Spread weapon. Alternate fire narrows spread.
 // Powerup increases number of shots in blast
 var shotgun = function(alternate) {
-    var fireSpeed = .12;
+    var fireSpeed = .18;
     if (this.shotTimer < fireSpeed) return;
     this.shotTimer -= fireSpeed;
     var shot, i;
-    var offset = alternate ? 5 : 10;
-    var spread = alternate ? 2 : 15;
-    for (var i = -this.weaponLevels[0]; i < this.weaponLevels[0] + 1; i++) {
+    var spread = alternate ? 30 : 90;
+    var numShots = 3 + this.weaponLevels[0];
+    for (var i = 0; i < numShots; i++) {
         shot = shmup.playerBullets.getBullet();
-        shot.x = this.x + (offset * i);
+        shot.x = this.x;
         shot.y = this.y;
         shot.body.reset(shot.x, shot.y);
         shot.body.velocity.x = spread * i;
-        game.physics.arcade.velocityFromAngle(-90 + (spread * i), 400, shot.body.velocity);
+        game.physics.arcade.velocityFromAngle(-90 + ((-spread / 2) + (spread / numShots) * i + spread / numShots / 2),
+            400, shot.body.velocity);
         shot.revive();
         shot.frame = 1;
         shot.power = 10;
