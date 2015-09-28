@@ -3,7 +3,6 @@
 ## Currently working
 
 Add alternate fire for gatling weapon (charge mode).
-Add damage amounts for bullets.
 
 ## Todo
 

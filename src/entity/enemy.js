@@ -19,6 +19,7 @@ var Enemy = function(imageKey, healthRating, movementFunction, shotFunction) {
     this.events.onKilled.add(function() {
         if (this.health > 0) return;
         shmup.emitter.burst(this.x, this.y);
+        shmup.score += healthRating * 100;
         game.sound.play('explode' + game.rnd.between(1, 6), 0.2);
     }, this);
 };

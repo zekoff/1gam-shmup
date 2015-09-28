@@ -4,6 +4,7 @@ var Player = require('../entity/player');
 var Input = require('../util/input');
 var BulletPool = require('../util/bulletpool');
 var Emitter = require('../entity/emitter');
+var Hud = require('../entity/hud');
 var state = {};
 
 state.create = function() {
@@ -16,12 +17,13 @@ state.create = function() {
     shmup.player = new Player();
     game.add.existing(shmup.player);
     shmup.input = new Input();
+    shmup.score = 0;
+    shmup.hud = new Hud();
 
     // game.input.onUp.addOnce(function(){
     //     game.scale.startFullScreen();
     // });
 
-    game.add.bitmapText(0, 0, 'font', 'TESTING BITMAP FONT', 32);
 };
 
 state.update = function() {
