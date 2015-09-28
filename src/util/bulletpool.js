@@ -14,6 +14,7 @@ BulletPool.prototype.getBullet = function() {
         shot.height = 24;
         shot.width = 8;
         shot.anchor.set(0.5);
+        shot.power = 10;
         shot.checkWorldBounds = true;
         shot.outOfBoundsKill = true;
         this.add(shot);

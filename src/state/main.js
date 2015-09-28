@@ -15,7 +15,7 @@ state.create = function() {
 
     shmup.player = new Player();
     game.add.existing(shmup.player);
-    shmup.input = new Input(true);
+    shmup.input = new Input();
 
     // game.input.onUp.addOnce(function(){
     //     game.scale.startFullScreen();
@@ -28,7 +28,7 @@ state.update = function() {
     shmup.stage.update();
     shmup.input.update();
     game.physics.arcade.overlap(shmup.enemies, shmup.playerBullets, function(enemy, shot) {
-        enemy.damage(1);
+        enemy.damage(shot.power);
         shot.kill();
     });
     game.physics.arcade.overlap(shmup.player, shmup.enemyBullets, function(player, shot) {

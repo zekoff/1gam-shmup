@@ -12,7 +12,7 @@ var Enemy = function(imageKey, healthRating, movementFunction, shotFunction) {
     this.speedFactor *= 0.5;
     this.shotTimer = 0;
     this.scale.set(healthRating / 10);
-    this.health = healthRating * healthRating / 2;
+    this.health = healthRating * healthRating / 2 * 10;
     this.moveUpdate = movementFunction.bind(this);
     if (shotFunction)
         this.shotUpdate = shotFunction.bind(this);

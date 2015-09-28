@@ -44,6 +44,7 @@ var shotgun = function(alternate) {
         game.physics.arcade.velocityFromAngle(-90 + (spread * i), 400, shot.body.velocity);
         shot.revive();
         shot.frame = 1;
+        shot.power = 10;
         shot.update = function() {
             this.rotation = Phaser.Math.angleBetweenPoints(this.previousPosition, this) - (Math.PI / 2);
         };
@@ -66,6 +67,7 @@ var gatling = function(alternate) {
     shot.angle = 0;
     shot.update = function() {};
     shot.frame = 2;
+    shot.power = 10;
 };
 
 // Seeking weapon. Alternate fire increases speed but deactivates seeking
@@ -82,6 +84,7 @@ var missile = function(alternate) {
     shot.rotation = 0;
     shot.angle = 0;
     shot.frame = 0;
+    shot.power = 50;
     shot.update = function() {};
     if (alternate) {
         shot.angle = game.rnd.between(-15, 15);
