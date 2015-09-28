@@ -24,7 +24,7 @@ var Stage = function(seed, difficulty) {
     this.background.fixedToCamera = true;
     this.backgroundSpeed = WARP_SPEED;
     this.waves = [];
-    for (var i = 0; i < 20; i++)
+    for (var i = 0; i < 1; i++)
         this.waves.push(new Wave(difficulty));
     this.waves.push(new BossWave(5));
 

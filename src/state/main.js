@@ -16,12 +16,12 @@ state.create = function() {
     shmup.player = new Player();
     game.add.existing(shmup.player);
     shmup.input = new Input();
-    
+
     // game.input.onUp.addOnce(function(){
     //     game.scale.startFullScreen();
     // });
-    
-    game.add.bitmapText(0,0,'font','TESTING BITMAP FONT',32);
+
+    game.add.bitmapText(0, 0, 'font', 'TESTING BITMAP FONT', 32);
 };
 
 state.update = function() {
@@ -39,6 +39,11 @@ state.update = function() {
 
 state.render = function() {
     game.debug.body(shmup.player);
+    shmup.playerBullets.forEachAlive(function(b) {
+        if (b.debugLine) {
+            game.debug.geom(b.debugLine, '#0f0');
+        }
+    });
 };
 
 module.exports = state;
