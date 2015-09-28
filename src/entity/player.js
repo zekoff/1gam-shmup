@@ -21,6 +21,10 @@ Player.prototype.update = function() {
     this.shotTimer += game.time.physicsElapsed;
     this.weaponUpdate(this.alternateFire);
 };
+Player.prototype.cycleWeapon = function() {
+    if (++this.currentWeapon > 2) this.currentWeapon = 0;
+    this.weaponUpdate = this.weapons[this.currentWeapon].bind(this);
+};
 
 // Spread weapon. Alternate fire narrows spread.
 // Powerup increases number of shots in blast
@@ -87,7 +91,7 @@ var missile = function(alternate) {
         shot.angle = game.rnd.between(-30, 30);
         game.physics.arcade.velocityFromAngle(-90 + shot.angle, 300, shot.body.velocity);
         shot.update = function() {
-            var turnRate = Math.PI / 4;
+            var turnRate = Math.PI / 2;
             var closestDistance = 10000;
             var closestEnemy = null;
             shmup.enemies.forEachAlive(function(enemy) {

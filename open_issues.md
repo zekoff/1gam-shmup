@@ -19,6 +19,7 @@ Add damage amounts for bullets.
 - Add coins/medals/bonus point pickups
 - Add scoring system
 - Add fullscreen mode
+- Add tween effect to score increases
 
 ## Bugs
 

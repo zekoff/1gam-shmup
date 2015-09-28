@@ -5,6 +5,9 @@ module.exports = {
         game.scale.pageAlignHorizontally = true;
         game.scale.pageAlignVertically = true;
         game.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+        game.canvas.oncontextmenu = function(e) {
+            e.preventDefault();
+        };
         game.load.image('pix');
     },
     create: function() {

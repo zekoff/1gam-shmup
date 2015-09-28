@@ -11,19 +11,18 @@ var MOUSE_INPUT = function() {
         shmup.player.x = game.input.activePointer.x;
         shmup.player.y = game.input.activePointer.y;
     }
-    // if ((shmup.player.shotTimer += game.time.physicsElapsed) >= .12) {
-    //     shmup.player.shoot(!game.input.activePointer.isDown);
-    // }
     shmup.player.alternateFire = game.input.activePointer.isDown;
 };
 var GAMEPAD_INPUT = function() {
     if (this.inputDisabled) return;
     shmup.player.alternateFire = this.pad.isDown(Phaser.Gamepad.XBOX360_A);
-    // if ((shmup.player.shotTimer += game.time.physicsElapsed) >= .12)
-    //     shmup.player.shoot(!this.pad.isDown(Phaser.Gamepad.XBOX360_A));
 
     if (!game.input.gamepad.supported || !game.input.gamepad.active ||
         !this.pad.connected) return;
+
+    var cycleButtonThisFrame = this.pad.isDown(Phaser.Gamepad.XBOX360_X);
+    if (!this.cycleButtonLastFrame && cycleButtonThisFrame) shmup.player.cycleWeapon();
+    this.cycleButtonLastFrame = cycleButtonThisFrame;
 
     shmup.player.body.velocity.set(0);
     var xDir = 0,
@@ -60,8 +59,14 @@ var Input = function(useGamepad) {
     game.input.gamepad.start();
     this.pad = game.input.gamepad.pad1;
     this.dummyPoint = new Phaser.Point();
-    if (useGamepad) this.update = GAMEPAD_INPUT.bind(this);
-    else this.update = MOUSE_INPUT.bind(this);
+    if (useGamepad) {
+        this.update = GAMEPAD_INPUT.bind(this);
+        this.cycleButtonLastFrame = false;
+    }
+    else {
+        this.update = MOUSE_INPUT.bind(this);
+        game.input.mousePointer.rightButton.onDown.add(shmup.player.cycleWeapon, shmup.player);
+    }
 };
 Input.prototype = {};
 Input.prototype.constructor = Input;
