@@ -9,7 +9,7 @@ var state = {};
 state.create = function() {
     shmup.emitter = new Emitter();
     shmup.enemyBullets = new BulletPool('pix');
-    shmup.playerBullets = new BulletPool('laser');
+    shmup.playerBullets = new BulletPool('player_lasers');
     shmup.enemies = game.add.group();
     shmup.stage = new Stage('example', 2);
 

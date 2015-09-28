@@ -8,8 +8,10 @@ var Player = function() {
     this.body.setSize(this.body.width * .7, this.body.height * .4, 0, 5);
     this.body.collideWorldBounds = true;
 
+    this.weapons = [shotgun, gatling, missile];
     this.weaponLevels = [2, 4, 1];
-    this.weaponUpdate = missile.bind(this);
+    this.currentWeapon = 0;
+    this.weaponUpdate = this.weapons[this.currentWeapon].bind(this);
 };
 Player.prototype = Object.create(Phaser.Sprite.prototype);
 Player.prototype.constructor = Player;
@@ -37,6 +39,7 @@ var shotgun = function(alternate) {
         shot.body.velocity.x = spread * i;
         game.physics.arcade.velocityFromAngle(-90 + (spread * i), 400, shot.body.velocity);
         shot.revive();
+        shot.frame = 1;
         shot.update = function() {
             this.rotation = Phaser.Math.angleBetweenPoints(this.previousPosition, this) - (Math.PI / 2);
         };
@@ -57,7 +60,8 @@ var gatling = function(alternate) {
     shot.revive();
     shot.rotation = 0;
     shot.angle = 0;
-    shot.update = null;
+    shot.update = function() {};
+    shot.frame = 2;
 };
 
 // Seeking weapon. Alternate fire increases speed but deactivates seeking
@@ -73,6 +77,7 @@ var missile = function(alternate) {
     shot.revive();
     shot.rotation = 0;
     shot.angle = 0;
+    shot.frame = 0;
     shot.update = function() {};
     if (alternate) {
         shot.angle = game.rnd.between(-15, 15);

@@ -17,6 +17,7 @@ module.exports = {
         game.load.image('starfield');
         game.load.image('explosion');
         game.load.image('laser', 'Lasers/laserGreen02.png');
+        game.load.spritesheet('player_lasers', 'player_lasers.png', 13, 37);
         var i, name;
         ['Black', 'Blue', 'Green', 'Red'].forEach(function(color) {
             for (i = 1; i < 6; i++) {
@@ -29,7 +30,7 @@ module.exports = {
             game.load.audio(name, 'Sounds/' + name + '.ogg');
         }
         game.load.audio('boss_explode', 'Sounds/boss_explode.ogg');
-        game.load.bitmapFont('font','font.png','font.fnt');
+        game.load.bitmapFont('font', 'font.png', 'font.fnt');
         game.load.start();
     },
     update: function() {

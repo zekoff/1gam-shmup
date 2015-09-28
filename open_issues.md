@@ -2,7 +2,8 @@
 
 ## Currently working
 
-Refactor player weapons and add more.
+Add alternate fire for gatling weapon (charge mode).
+Add damage amounts for bullets.
 
 ## Todo
 
