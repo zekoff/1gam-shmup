@@ -20,6 +20,10 @@ module.exports = {
         game.load.image('starfield');
         game.load.image('explosion');
         game.load.image('laser', 'Lasers/laserGreen02.png');
+        game.load.image('powerup_blue', 'Power-ups/powerupBlue_bolt.png');
+        game.load.image('powerup_green', 'Power-ups/powerupGreen_bolt.png');
+        game.load.image('powerup_red', 'Power-ups/powerupRed_bolt.png');
+        game.load.image('star', 'Power-ups/star_gold.png');
         game.load.spritesheet('player_lasers', 'player_lasers.png', 13, 37);
         var i, name;
         ['Black', 'Blue', 'Green', 'Red'].forEach(function(color) {
@@ -33,6 +37,8 @@ module.exports = {
             game.load.audio(name, 'Sounds/' + name + '.ogg');
         }
         game.load.audio('boss_explode', 'Sounds/boss_explode.ogg');
+        game.load.audio('pickup_star', 'Sounds/sfx_twoTone.ogg');
+        game.load.audio('pickup_powerup', 'Sounds/sfx_shieldUp.ogg');
         game.load.bitmapFont('font', 'font.png', 'font.fnt');
         game.load.start();
     },

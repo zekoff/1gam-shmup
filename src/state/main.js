@@ -12,7 +12,8 @@ state.create = function() {
     shmup.enemyBullets = new BulletPool('pix');
     shmup.playerBullets = new BulletPool('player_lasers');
     shmup.enemies = game.add.group();
-    shmup.stage = new Stage('example', 2);
+    shmup.pickups = game.add.group();
+    shmup.stage = new Stage('example2', 2);
 
     shmup.player = new Player();
     game.add.existing(shmup.player);
@@ -36,6 +37,10 @@ state.update = function() {
     game.physics.arcade.overlap(shmup.player, shmup.enemyBullets, function(player, shot) {
         shot.kill();
         print('ouch!');
+    });
+    game.physics.arcade.overlap(shmup.player, shmup.pickups, function(player, pickup) {
+        pickup.pickedUp();
+        pickup.kill();
     });
 };
 

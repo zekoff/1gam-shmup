@@ -9,7 +9,7 @@ var Player = function() {
     this.body.collideWorldBounds = true;
 
     this.weapons = [shotgun, gatling, missile];
-    this.weaponLevels = [4, 4, 4];
+    this.weaponLevels = [1, 1, 1];
     this.currentWeapon = 0;
     this.weaponUpdate = this.weapons[this.currentWeapon].bind(this);
     this.chargeTime = 0;
@@ -26,6 +26,9 @@ Player.prototype.update = function() {
 Player.prototype.cycleWeapon = function() {
     if (++this.currentWeapon > 2) this.currentWeapon = 0;
     this.weaponUpdate = this.weapons[this.currentWeapon].bind(this);
+};
+Player.prototype.boostWeapon = function(weaponNumber) {
+    if (this.weaponLevels[weaponNumber] < 4) this.weaponLevels[weaponNumber]++;
 };
 
 // Spread weapon. Alternate fire narrows spread.

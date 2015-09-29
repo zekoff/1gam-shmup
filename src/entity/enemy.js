@@ -1,4 +1,5 @@
 /* global game, Phaser, shmup */
+var Pickup = require('./pickup');
 
 var Enemy = function(imageKey, healthRating, movementFunction, shotFunction) {
     Phaser.Sprite.call(this, game, 0, 0, imageKey);
@@ -20,6 +21,7 @@ var Enemy = function(imageKey, healthRating, movementFunction, shotFunction) {
         if (this.health > 0) return;
         shmup.emitter.burst(this.x, this.y);
         shmup.score += healthRating * 100;
+        if (game.rnd.frac() < 0.4) shmup.pickups.add(new Pickup(this.x, this.y));
         game.sound.play('explode' + game.rnd.between(1, 6), 0.2);
     }, this);
 };
