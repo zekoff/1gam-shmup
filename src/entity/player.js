@@ -20,6 +20,7 @@ Player.prototype.constructor = Player;
 Player.prototype.FAST_SPEED = 350;
 Player.prototype.SLOW_SPEED = 150;
 Player.prototype.update = function() {
+    if (!this.alive) return;
     this.shotTimer += game.time.physicsElapsed;
     this.weaponUpdate(this.alternateFire);
 };
@@ -29,6 +30,31 @@ Player.prototype.cycleWeapon = function() {
 };
 Player.prototype.boostWeapon = function(weaponNumber) {
     if (this.weaponLevels[weaponNumber] < 4) this.weaponLevels[weaponNumber]++;
+};
+Player.prototype.hit = function() {
+    if (this.invulnerable) return;
+    this.weaponLevels = [1, 1, 1];
+    shmup.emitter.burst(this.x, this.y);
+    game.sound.play('boss_explode', 0.3);
+    this.kill();
+    this.invulnerable = true;
+    if (shmup.lives > 0)
+        game.time.events.add(2000, function() {
+            shmup.enemyBullets.callAll('kill');
+            shmup.lives--;
+            this.x = 400;
+            this.y = 500;
+            this.alpha = 0.5;
+            this.revive();
+            game.time.events.add(3000, function() {
+                this.alpha = 1;
+                this.invulnerable = false;
+            }, this);
+        }, this);
+    else game.time.events.add(2000, function() {
+        // start continue timer?
+        game.state.start('gameover');
+    });
 };
 
 // Spread weapon. Alternate fire narrows spread.
@@ -114,6 +140,7 @@ var missile = function(alternate) {
     shot.rotation = 0;
     shot.frame = 0;
     shot.power = this.weaponLevels[2] * 16;
+    shot.scale.set(0.35 * this.weaponLevels[2]);
     shot.update = function() {};
     if (alternate) {
         shot.angle = game.rnd.between(-15, 15);

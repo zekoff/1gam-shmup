@@ -12,9 +12,8 @@
 - Add stage select
 - UFOs as bonus opportunities
 - Add extra lives every X points
-- Add scoring system
 - Add fullscreen mode
-- Add death on player hit
+- Add gameover/continue
 - Reduce difference between fully powered-up weapons and not
 
 ## Bugs
