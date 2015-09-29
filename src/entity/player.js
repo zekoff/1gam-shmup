@@ -5,7 +5,7 @@ var Player = function() {
     this.anchor.set(0.5);
     this.scale.set(0.5);
     this.shotTimer = 0;
-    this.body.setSize(this.body.width * .7, this.body.height * .4, 0, 5);
+    this.body.setSize(this.body.width * .4, this.body.height * .4, 0, 5);
     this.body.collideWorldBounds = true;
 
     this.weapons = [shotgun, gatling, missile];
