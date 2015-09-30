@@ -1,4 +1,5 @@
 /* global Phaser, game, shmup */
+
 var Hud = function() {
     Phaser.Group.call(this, game);
     this.scoreText = game.make.bitmapText(790, 600, 'font', 'SCORE: ', 24);
@@ -30,11 +31,26 @@ var Hud = function() {
     this.bossHealth.exists = false;
     this.bossHealth.tint = 0xf89d00;
     this.add(this.bossHealth);
+    this.scorePulse = null;
 };
 Hud.prototype = Object.create(Phaser.Group.prototype);
 Hud.prototype.constructor = Hud;
+Hud.prototype.pulseScore = function() {
+    if (this.scorePulse) this.scorePulse.stop();
+    this.scorePulse = game.add.tween(this.scoreText.scale);
+    this.scorePulse.to({
+        x: 1.3,
+        y: 1.3
+    }, 300, Phaser.Easing.Cubic.Out);
+    this.scorePulse.to({
+        x: 1,
+        y: 1
+    }, 500, Phaser.Easing.Cubic.In);
+    this.scorePulse.start();
+};
 Hud.prototype.update = function() {
     if (this.lastFrameScore != shmup.score) {
+        this.pulseScore();
         if (this.scoreTween) this.scoreTween.stop();
         this.scoreTween = game.add.tween(this);
         this.scoreTween.to({
