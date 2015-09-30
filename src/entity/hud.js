@@ -44,16 +44,15 @@ Hud.prototype.update = function() {
     this.lastFrameScore = shmup.score;
     this.scoreText.setText("SCORE: " + Math.floor(this.displayedScore));
     this.livesText.setText("LIVES: " + shmup.lives);
-    if (this.boss) {
+    if (this.boss)
         this.bossHealth.width = 398 * (this.boss.health / this.boss.maxHealth);
-        print(this.boss.health / this.boss.maxHealth);
-    }
 };
 Hud.prototype.setBoss = function(boss) {
     this.boss = boss;
-    this.bossText.exists = true;
-    this.bossHealthBackground.exists = true;
-    this.bossHealth.exists = true;
+    var bossExists = boss || 0;
+    this.bossText.exists = bossExists;
+    this.bossHealthBackground.exists = bossExists;
+    this.bossHealth.exists = bossExists;
 };
 
 var WeaponDisplay = function() {

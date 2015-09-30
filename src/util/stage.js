@@ -24,7 +24,7 @@ var Stage = function(seed, difficulty) {
     this.background.fixedToCamera = true;
     this.backgroundSpeed = WARP_SPEED;
     this.waves = [];
-    for (var i = 0; i < 1; i++)
+    for (var i = 0; i < 15; i++)
         this.waves.push(new Wave(difficulty));
     this.waves.push(new BossWave(5));
 
@@ -115,17 +115,19 @@ var Wave = function(difficulty) {
     this.numberAdded = 0;
     this.enemies = [];
     // set up single batch of enemies
-    this.numberInWave = difficulty * 3;
+    var enemyType = game.rnd.between(1, 3);
+    this.healthRating = enemyType * 3;
+    this.numberInWave = 9 / enemyType;
+    this.timeBetweenAdding = 0.35 * enemyType;
     this.movementPattern = game.rnd.pick(MovementTypes);
     this.shotPattern = game.rnd.pick(ShotTypes);
     this.imageKey = game.rnd.pick(Enemy.prototype.IMAGE_KEYS);
-    this.healthRating = game.rnd.between(1, 3) * 3;
 };
 Wave.prototype = {};
 Wave.prototype.constructor = Wave;
 Wave.prototype.update = function() {
     this.timeToAdd += game.time.physicsElapsed;
-    if (this.timeToAdd > 0.5 && this.numberAdded < this.numberInWave) {
+    if (this.timeToAdd > this.timeBetweenAdding && this.numberAdded < this.numberInWave) {
         this.timeToAdd = 0;
         this.numberAdded++;
         var enemy = new Enemy(this.imageKey, this.healthRating,
