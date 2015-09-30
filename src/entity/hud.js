@@ -1,7 +1,8 @@
 /* global Phaser, game, shmup */
 var Hud = function() {
     Phaser.Group.call(this, game);
-    this.scoreText = game.make.bitmapText(10, 10, 'font', 'SCORE: ', 32);
+    this.scoreText = game.make.bitmapText(790, 590, 'font', 'SCORE: ', 24);
+    this.scoreText.anchor.set(1, 1);
     this.livesText = game.make.bitmapText(10, 590, 'font', 'LIVES: ', 24);
     this.livesText.anchor.set(0, 1);
     this.add(this.scoreText);
