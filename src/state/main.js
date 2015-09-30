@@ -13,7 +13,7 @@ state.create = function() {
     shmup.playerBullets = new BulletPool('player_lasers');
     shmup.enemies = game.add.group();
     shmup.pickups = game.add.group();
-    shmup.stage = new Stage('example2', 2);
+    shmup.stage = new Stage('example3', 2);
     shmup.lives = 2;
 
     shmup.player = new Player();

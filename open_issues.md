@@ -15,6 +15,7 @@
 - Add fullscreen mode
 - Add gameover/continue
 - Reduce difference between fully powered-up weapons and not
+- Add health bar for boss
 
 ## Bugs
 

@@ -106,6 +106,7 @@ var gatling = function(alternate) {
         return;
     }
     if (alternate) {
+        this.shotTimer = 0;
         this.chargeTime += game.time.physicsElapsed;
         this.lastFrameCharging = true;
         return;
