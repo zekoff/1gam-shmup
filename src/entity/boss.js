@@ -5,7 +5,7 @@ var createRandomLocationTween = function(target, tween) {
     tween.to({
         x: game.rnd.between(100, 700),
         y: game.rnd.between(20, 300)
-    }, 1000, null, true);
+    }, 2500, null, true);
 };
 
 var Boss = function(difficulty) {
@@ -27,6 +27,7 @@ var Boss = function(difficulty) {
             shmup.emitter.burst(p.x, p.y);
         }
         game.sound.play('boss_explode', 0.3);
+        shmup.hud.setBoss(null);
     }, this);
 };
 Boss.prototype = Object.create(Phaser.Sprite.prototype);

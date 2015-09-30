@@ -11,6 +11,25 @@ var Hud = function() {
     this.displayedScore = 0;
     this.scoreTween = null;
     this.weaponDisplay = new WeaponDisplay();
+    this.boss = null;
+    this.bossText = game.make.bitmapText(400, 40, 'font', "BOSS", 32);
+    this.bossText.anchor.set(0.5, 0);
+    this.bossText.exists = false;
+    this.add(this.bossText);
+    this.bossHealthBackground = game.make.image(400, 10, 'pix');
+    this.bossHealthBackground.anchor.set(0.5, 0);
+    this.bossHealthBackground.width = 400;
+    this.bossHealthBackground.height = 20;
+    this.bossHealthBackground.exists = false;
+    this.bossHealthBackground.tint = 0x404040;
+    this.add(this.bossHealthBackground);
+    this.bossHealth = game.make.image(400, 11, 'pix');
+    this.bossHealth.anchor.set(0.5, 0);
+    this.bossHealth.width = 398;
+    this.bossHealth.height = 18;
+    this.bossHealth.exists = false;
+    this.bossHealth.tint = 0xf89d00;
+    this.add(this.bossHealth);
 };
 Hud.prototype = Object.create(Phaser.Group.prototype);
 Hud.prototype.constructor = Hud;
@@ -24,8 +43,17 @@ Hud.prototype.update = function() {
     }
     this.lastFrameScore = shmup.score;
     this.scoreText.setText("SCORE: " + Math.floor(this.displayedScore));
-
     this.livesText.setText("LIVES: " + shmup.lives);
+    if (this.boss) {
+        this.bossHealth.width = 398 * (this.boss.health / this.boss.maxHealth);
+        print(this.boss.health / this.boss.maxHealth);
+    }
+};
+Hud.prototype.setBoss = function(boss) {
+    this.boss = boss;
+    this.bossText.exists = true;
+    this.bossHealthBackground.exists = true;
+    this.bossHealth.exists = true;
 };
 
 var WeaponDisplay = function() {
@@ -101,6 +129,5 @@ WeaponDisplay.prototype.update = function() {
     for (i = 0; i < shmup.player.weaponLevels[0]; i++) this.greenBars[i].tint = this.GREEN;
     for (i = 0; i < shmup.player.weaponLevels[2]; i++) this.blueBars[i].tint = this.BLUE;
 };
-WeaponDisplay.prototype.showThenHide = function() {};
 
 module.exports = Hud;
