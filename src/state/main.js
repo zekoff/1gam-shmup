@@ -22,7 +22,7 @@ state.create = function() {
     shmup.score = 0;
     shmup.hud = new Hud();
 
-    // game.input.onUp.addOnce(function(){
+    // game.input.onUp.addOnce(function() {
     //     game.scale.startFullScreen();
     // });
 
@@ -46,7 +46,7 @@ state.update = function() {
 };
 
 state.render = function() {
-    game.debug.body(shmup.player);
+    // game.debug.body(shmup.player);
 };
 
 module.exports = state;
