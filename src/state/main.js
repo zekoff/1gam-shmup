@@ -13,14 +13,11 @@ state.create = function() {
     shmup.playerBullets = new BulletPool('player_lasers');
     shmup.enemies = game.add.group();
     shmup.pickups = game.add.group();
-    shmup.stage = new Stage('example2', 1);
-    shmup.lives = 2;
-    shmup.stars = 0;
+    shmup.stage = new Stage('example7', 7);
 
     shmup.player = new Player();
     game.add.existing(shmup.player);
     shmup.input = new Input();
-    shmup.score = 0;
     shmup.hud = new Hud();
 
     // game.input.onUp.addOnce(function() {

@@ -18,8 +18,14 @@ var OUTRO_LENGTH = 4000;
 var WARP_SPEED = 3000;
 
 // Seed is a string that will be used to init the RNG.
-// Difficulty is a number 1-5
+// Difficulty is a number 1-5 for normal play, higher for challenge modes
 var Stage = function(seed, difficulty) {
+    shmup.data.stage = {
+        name: seed,
+        difficulty: difficulty,
+        enemiesKilled: 0,
+        enemiesInWave: 0
+    };
     this.difficulty = difficulty;
     game.rnd.sow([seed]);
     this.trackName = game.rnd.pick(MUSIC_TRACKS);
@@ -33,6 +39,9 @@ var Stage = function(seed, difficulty) {
     for (i = 0; i < numWaves; i++)
         this.waves.push(new Wave(difficulty));
     this.waves.push(new BossWave(difficulty));
+    this.waves.forEach(function(wave) {
+        shmup.data.stage.totalEnemies += wave.numberInWave;
+    });
     // Bonus UFOs
     var stageLengthSeconds = numWaves * this.secondsBetweenWaves;
     this.numUfos = difficulty;
@@ -183,7 +192,7 @@ var Ufo = function() {
     this.events.onKilled.add(function() {
         if (this.health > 0) return;
         shmup.emitter.burst(this.x, this.y);
-        shmup.score += 5000;
+        shmup.data.ship.score += 5000;
         game.sound.play('explode' + game.rnd.between(1, 6), 0.2);
     }, this);
     print('ufo created');

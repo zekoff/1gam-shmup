@@ -20,8 +20,8 @@ var Enemy = function(imageKey, healthRating, movementFunction, shotFunction) {
     this.events.onKilled.add(function() {
         if (this.health > 0) return;
         shmup.emitter.burst(this.x, this.y);
-        shmup.score += healthRating * 100;
-        var pickupChance = 0.9 - (shmup.player.weaponLevels.reduce(function(a, b) {
+        shmup.data.ship.score += healthRating * 100;
+        var pickupChance = 0.9 - (shmup.data.ship.weaponLevels.reduce(function(a, b) {
             return a + b;
         }) / 20);
         if (game.rnd.frac() < pickupChance) shmup.pickups.add(new Pickup(this.x, this.y));

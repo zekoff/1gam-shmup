@@ -36,8 +36,8 @@ Pickup.prototype.pickedUp = function() {
         game.sound.play('pickup_star', 0.5);
     }
     else {
-        shmup.score += 2000;
-        shmup.stars++;
+        shmup.data.ship.score += 2000;
+        shmup.data.ship.stars++;
         game.sound.play('pickup_powerup', 0.5);
     }
 };

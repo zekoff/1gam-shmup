@@ -38,10 +38,10 @@ Player.prototype.hit = function() {
     this.kill();
     this.weaponLevels[this.currentWeapon] = 1;
     this.invulnerable = true;
-    if (shmup.lives > 0)
+    if (shmup.data.ship.lives > 0)
         game.time.events.add(2000, function() {
             shmup.enemyBullets.callAll('kill');
-            shmup.lives--;
+            shmup.data.ship.lives--;
             this.x = 400;
             this.y = 500;
             this.alpha = 0.5;

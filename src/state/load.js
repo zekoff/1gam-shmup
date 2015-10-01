@@ -1,4 +1,4 @@
-/* global Phaser, game */
+/* global Phaser, game, shmup */
 module.exports = {
     preload: function() {
         game.load.baseURL = './assets/';
@@ -11,6 +11,10 @@ module.exports = {
         game.load.image('pix');
     },
     create: function() {
+        shmup.data = {};
+        shmup.data.global = {};
+        shmup.data.global.gamepad = false;
+        
         game.load.audio('burning_engines', 'Music/burning_engines.ogg');
         game.load.audio('challenge', 'Music/challenge.ogg');
         game.load.audio('downtown', 'Music/downtown.ogg');
