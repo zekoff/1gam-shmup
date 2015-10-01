@@ -84,9 +84,24 @@ var doubleStraight = function() {
         shot.body.velocity.y = 250;
     }
 };
-var lead = function() {
+var smallAimed = function() {
     this.shotTimer += game.time.physicsElapsed;
-    // aim where player will be
+    if (this.shotTimer > 0.5) {
+        // add shots
+        this.shotTimer = 0;
+        var shot = shmup.enemyBullets.getBullet();
+        shot.tint = 0xff80ff;
+        shot.x = this.x;
+        shot.y = this.y;
+        shot.height = shot.width = 20;
+        shot.body.reset(shot.x, shot.y);
+        shot.revive();
+        game.physics.arcade.moveToObject(shot, shmup.player, 300);
+    }
+
 };
 
-module.exports = [straight, aimed, fatAimed, burst, doubleStraight];
+module.exports = {
+    enemyShots: [straight, aimed, fatAimed, burst, doubleStraight],
+    bossShots: [aimed, fatAimed, burst, smallAimed]
+};

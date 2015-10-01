@@ -2,12 +2,14 @@
 
 ## Currently working
 
+Add boss weapons based on difficulty.
+
+Set up stage flow and stage select.
+
 ## Todo
 
 - More enemy shot and movement patterns
 - Improve stage/wave flow
-- Improve use of stage and boss difficulty
-- Add boss weapon differentiation
 - Add stage select
 - UFOs as bonus opportunities
 - Add extra lives every X points

@@ -1,5 +1,6 @@
 /* global game, Phaser, shmup */
 var Enemy = require('./enemy');
+var ShotTypes = require('../util/shot');
 
 var createRandomLocationTween = function(target, tween) {
     tween.to({
@@ -16,7 +17,7 @@ var Boss = function(difficulty) {
     this.moveTimer = 0;
     this.moveState = this.INIT;
     this.moveTween = null;
-    this.shotTimer = 0;
+    // this.shotTimer = 0;
     this.scale.set(1.5);
     this.maxHealth = this.health = 3000 + difficulty * 1000; // shot-in-the-dark for balance
     this.events.onKilled.add(function() {
@@ -29,6 +30,18 @@ var Boss = function(difficulty) {
         game.sound.play('boss_explode', 0.3);
         shmup.hud.setBoss(null);
     }, this);
+
+    this.weapons = [];
+    var i;
+    for (i = 0; i < difficulty * 3; i++) {
+        var weapon = {
+            x: 0,
+            y: 0,
+            shotTimer: 0,
+        };
+        weapon.shotUpdate = game.rnd.pick(ShotTypes.bossShots).bind(weapon);
+        this.weapons.push(weapon);
+    }
 };
 Boss.prototype = Object.create(Phaser.Sprite.prototype);
 Boss.prototype.constructor = Boss;
@@ -38,12 +51,15 @@ Boss.prototype.RANDOM = 2;
 Boss.prototype.update = function() {
     if (!this.alive) return; // seems like this should be the default behavior in Phaser...
     // handle movement based on move state / health
+    var weaponsEngaged = 1;
     switch (this.moveState) {
         case this.INIT:
+            weaponsEngaged = Math.ceil(this.weapons.length / 3);
             if (this.y < 150) this.y += 30 * game.time.physicsElapsed;
             if (this.health < this.maxHealth * .7) this.moveState = this.PAN;
             break;
         case this.PAN:
+            weaponsEngaged = Math.ceil(this.weapons.length / 3) * 2;
             if (!this.moveTween) {
                 this.moveTween = game.tweens.create(this);
                 this.moveTween.to({
@@ -60,6 +76,7 @@ Boss.prototype.update = function() {
             }
             break;
         case this.RANDOM:
+            weaponsEngaged = this.weapons.length;
             if (!this.moveTween) {
                 this.moveTween = game.add.tween(this);
                 this.moveTween.onComplete.add(createRandomLocationTween);
@@ -67,19 +84,11 @@ Boss.prototype.update = function() {
             }
             break;
     }
-    // shoot based on boss pattern
-    this.shotTimer += game.time.physicsElapsed;
-    if (this.shotTimer > 0.5) {
-        // add shots
-        this.shotTimer = 0;
-        var shot = shmup.enemyBullets.getBullet();
-        shot.tint = 0xff80ff;
-        shot.x = this.x;
-        shot.y = this.y;
-        shot.height = shot.width = 20;
-        shot.body.reset(shot.x, shot.y);
-        shot.revive();
-        game.physics.arcade.moveToObject(shot, shmup.player, 300);
+    var i;
+    for (i = 0; i < weaponsEngaged; i++) {
+        this.weapons[i].x = this.x;
+        this.weapons[i].y = this.y;
+        this.weapons[i].shotUpdate();
     }
 };
 
