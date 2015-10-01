@@ -18,7 +18,7 @@ var Boss = function(difficulty) {
     this.moveTween = null;
     this.shotTimer = 0;
     this.scale.set(1.5);
-    this.maxHealth = this.health = difficulty * 1000; // shot-in-the-dark for balance
+    this.maxHealth = this.health = 3000 + difficulty * 1000; // shot-in-the-dark for balance
     this.events.onKilled.add(function() {
         var rect = new Phaser.Rectangle(this.left, this.top, this.width, this.height);
         var p = new Phaser.Point();

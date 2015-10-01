@@ -17,18 +17,20 @@ var INTRO_LENGTH = 400;
 var OUTRO_LENGTH = 4000;
 var WARP_SPEED = 3000;
 
+// Seed is a string that will be used to init the RNG.
+// Difficulty is a number 1-4
 var Stage = function(seed, difficulty) {
+    this.difficulty = difficulty;
     game.rnd.sow([seed]);
     this.trackName = game.rnd.pick(MUSIC_TRACKS);
     this.background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
     this.background.fixedToCamera = true;
     this.backgroundSpeed = WARP_SPEED;
     this.waves = [];
-    for (var i = 0; i < 15; i++)
+    for (var i = 0; i < 9 + (difficulty * 3); i++)
         this.waves.push(new Wave(difficulty));
-    this.waves.push(new BossWave(5));
+    this.waves.push(new BossWave(difficulty));
 
-    // XXX temp
     this.updateTimer = 0;
 
     this.stageState = this.INTRO;
@@ -76,7 +78,7 @@ Stage.prototype.update = function() {
                 if (shmup.enemies.total == 0) this.stageState = this.OUTTRO;
                 else return;
             }
-            if (this.updateTimer > 5) {
+            if (this.updateTimer > (6.5 - this.difficulty * 0.5)) {
                 this.waves.shift();
                 this.updateTimer = 0;
             }
