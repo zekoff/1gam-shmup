@@ -18,7 +18,7 @@ var OUTRO_LENGTH = 4000;
 var WARP_SPEED = 3000;
 
 // Seed is a string that will be used to init the RNG.
-// Difficulty is a number 1-4
+// Difficulty is a number 1-5
 var Stage = function(seed, difficulty) {
     this.difficulty = difficulty;
     game.rnd.sow([seed]);
@@ -27,9 +27,7 @@ var Stage = function(seed, difficulty) {
     this.background.fixedToCamera = true;
     this.backgroundSpeed = WARP_SPEED;
     this.waves = [];
-    // for (var i = 0; i < 9 + (difficulty * 3); i++)
-    //     this.waves.push(new Wave(difficulty));
-    for (var i = 0; i < 1; i++)
+    for (var i = 0; i < 9 + (difficulty * 3); i++)
         this.waves.push(new Wave(difficulty));
     this.waves.push(new BossWave(difficulty));
 

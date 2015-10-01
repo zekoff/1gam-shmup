@@ -41,11 +41,11 @@ Hud.prototype.pulseScore = function() {
     this.scorePulse.to({
         x: 1.3,
         y: 1.3
-    }, 300, Phaser.Easing.Cubic.Out);
+    }, 200, Phaser.Easing.Cubic.Out);
     this.scorePulse.to({
         x: 1,
         y: 1
-    }, 500, Phaser.Easing.Cubic.In);
+    }, 200, Phaser.Easing.Cubic.In);
     this.scorePulse.start();
 };
 Hud.prototype.update = function() {
@@ -80,6 +80,19 @@ var WeaponDisplay = function() {
     background.width = 100;
     background.height = 100;
     this.add(background);
+    // icon backgrounds
+    this.redBackground = game.make.image(39, 69, 'pix');
+    this.redBackground.width = this.redBackground.height = 22;
+    this.redBackground.exists = false;
+    this.add(this.redBackground);
+    this.greenBackground = game.make.image(9, 69, 'pix');
+    this.greenBackground.width = this.greenBackground.height = 22;
+    this.greenBackground.exists = false;
+    this.add(this.greenBackground);
+    this.blueBackground = game.make.image(69, 69, 'pix');
+    this.blueBackground.width = this.blueBackground.height = 22;
+    this.blueBackground.exists = false;
+    this.add(this.blueBackground);
     // icons
     var redIcon = game.make.image(40, 70, 'powerup_red');
     redIcon.width = 20;
@@ -143,6 +156,20 @@ WeaponDisplay.prototype.update = function() {
     for (i = 0; i < shmup.player.weaponLevels[1]; i++) this.redBars[i].tint = this.RED;
     for (i = 0; i < shmup.player.weaponLevels[0]; i++) this.greenBars[i].tint = this.GREEN;
     for (i = 0; i < shmup.player.weaponLevels[2]; i++) this.blueBars[i].tint = this.BLUE;
+    this.redBackground.exists = false;
+    this.greenBackground.exists = false;
+    this.blueBackground.exists = false;
+    switch (shmup.player.currentWeapon) {
+        case 0:
+            this.greenBackground.exists = true;
+            break;
+        case 1:
+            this.redBackground.exists = true;
+            break;
+        case 2:
+            this.blueBackground.exists = true;
+            break;
+    }
 };
 
 module.exports = Hud;
