@@ -48,6 +48,7 @@ Stage.prototype.update = function() {
     switch (this.stageState) {
         case this.INTRO:
             if (!this.stateTween) {
+                shmup.player.alive = false;
                 shmup.input.inputDisabled = true;
                 shmup.player.x = 400;
                 shmup.player.y = 600;
@@ -59,6 +60,7 @@ Stage.prototype.update = function() {
                     y: 500
                 }, INTRO_LENGTH / 2, Phaser.Easing.Sinusoidal.InOut);
                 this.stateTween.onComplete.add(function() {
+                    shmup.player.alive = true;
                     shmup.input.inputDisabled = false;
                     this.stageState = this.MAIN;
                     this.stateTween = null;
@@ -85,6 +87,7 @@ Stage.prototype.update = function() {
             break;
         case this.OUTTRO:
             if (!this.stateTween) {
+                shmup.player.alive = false;
                 shmup.enemyBullets.callAll('kill');
                 shmup.player.body.reset(shmup.player.x, shmup.player.y);
                 shmup.input.inputDisabled = true;
