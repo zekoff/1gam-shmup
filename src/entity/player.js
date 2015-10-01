@@ -33,10 +33,10 @@ Player.prototype.boostWeapon = function(weaponNumber) {
 };
 Player.prototype.hit = function() {
     if (this.invulnerable) return;
-    this.weaponLevels = [1, 1, 1];
     shmup.emitter.burst(this.x, this.y);
     game.sound.play('boss_explode', 0.3);
     this.kill();
+    this.weaponLevels[this.currentWeapon] = 1;
     this.invulnerable = true;
     if (shmup.lives > 0)
         game.time.events.add(2000, function() {

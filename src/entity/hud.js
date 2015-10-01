@@ -41,11 +41,11 @@ Hud.prototype.pulseScore = function() {
     this.scorePulse.to({
         x: 1.3,
         y: 1.3
-    }, 200, Phaser.Easing.Cubic.Out);
+    }, 300, Phaser.Easing.Cubic.Out);
     this.scorePulse.to({
         x: 1,
         y: 1
-    }, 200, Phaser.Easing.Cubic.In);
+    }, 500, Phaser.Easing.Cubic.In);
     this.scorePulse.start();
 };
 Hud.prototype.update = function() {
