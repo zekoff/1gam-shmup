@@ -1,13 +1,18 @@
 /* global Phaser, game, shmup */
 
+var STARS_FOR_EXTRA_LIFE = 20;
+
 var Hud = function() {
     Phaser.Group.call(this, game);
     this.scoreText = game.make.bitmapText(790, 600, 'font', 'SCORE: ', 24);
     this.scoreText.anchor.set(1, 1);
     this.livesText = game.make.bitmapText(120, 600, 'font', 'LIVES: ', 24);
     this.livesText.anchor.set(0, 1);
+    this.starsText = game.make.bitmapText(120, 550, 'font', 'STARS: ', 16);
+    this.livesText.anchor.set(0, 1);
     this.add(this.scoreText);
     this.add(this.livesText);
+    this.add(this.starsText);
     this.lastFrameScore = 0;
     this.displayedScore = 0;
     this.scoreTween = null;
@@ -57,9 +62,14 @@ Hud.prototype.update = function() {
             displayedScore: shmup.score
         }, 750, null, true);
     }
+    if (shmup.stars >= STARS_FOR_EXTRA_LIFE) {
+        shmup.stars -= STARS_FOR_EXTRA_LIFE;
+        shmup.lives++;
+    }
     this.lastFrameScore = shmup.score;
     this.scoreText.setText("SCORE: " + Math.floor(this.displayedScore));
     this.livesText.setText("LIVES: " + shmup.lives);
+    this.starsText.setText("STARS: " + shmup.stars + "/" + STARS_FOR_EXTRA_LIFE);
     if (this.boss)
         this.bossHealth.width = 398 * (this.boss.health / this.boss.maxHealth);
 };

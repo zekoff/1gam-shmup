@@ -15,6 +15,7 @@ state.create = function() {
     shmup.pickups = game.add.group();
     shmup.stage = new Stage('example2', 1);
     shmup.lives = 2;
+    shmup.stars = 0;
 
     shmup.player = new Player();
     game.add.existing(shmup.player);
