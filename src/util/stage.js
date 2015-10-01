@@ -27,11 +27,20 @@ var Stage = function(seed, difficulty) {
     this.background.fixedToCamera = true;
     this.backgroundSpeed = WARP_SPEED;
     this.waves = [];
-    for (var i = 0; i < 9 + (difficulty * 3); i++)
+    var numWaves = 9 + (difficulty * 3);
+    this.secondsBetweenWaves = (6.5 - this.difficulty * 0.5);
+    var i;
+    for (i = 0; i < numWaves; i++)
         this.waves.push(new Wave(difficulty));
     this.waves.push(new BossWave(difficulty));
+    // Bonus UFOs
+    var stageLengthSeconds = numWaves * this.secondsBetweenWaves;
+    this.numUfos = difficulty;
+    this.ufosSeen = 0;
+    this.timeBetweenUfos = stageLengthSeconds / this.numUfos;
 
     this.updateTimer = 0;
+    this.ufoTimer = this.timeBetweenUfos / 2;
 
     this.stageState = this.INTRO;
     this.stateTween = null;
@@ -74,15 +83,20 @@ Stage.prototype.update = function() {
         case this.MAIN:
             this.waves[0].update();
 
-            // XXX temp
             this.updateTimer += game.time.physicsElapsed;
             if (this.waves.length == 1) {
                 if (shmup.enemies.total == 0) this.stageState = this.OUTTRO;
                 else return;
             }
-            if (this.updateTimer > (6.5 - this.difficulty * 0.5)) {
+            if (this.updateTimer > this.secondsBetweenWaves) {
                 this.waves.shift();
                 this.updateTimer = 0;
+            }
+
+            this.ufoTimer += game.time.physicsElapsed;
+            if (this.ufoTimer > this.timeBetweenUfos) {
+                this.ufoTimer -= this.timeBetweenUfos;
+                if (this.ufosSeen++ < this.numUfos) shmup.enemies.add(new Ufo());
             }
             break;
         case this.OUTTRO:
@@ -154,6 +168,30 @@ BossWave.prototype.update = function() {
         shmup.enemies.add(this.boss);
         shmup.hud.setBoss(this.boss);
     }
+};
+
+var UFO_IMAGE_KEYS = ['ufoBlue', 'ufoGreen', 'ufoRed', 'ufoYellow'];
+var Ufo = function() {
+    Phaser.Sprite.call(this, game, 0, 60, game.rnd.pick(UFO_IMAGE_KEYS));
+    this.anchor.set(0.5);
+    game.physics.arcade.enable(this);
+    this.body.setSize(this.body.width * .8, this.body.height * .8);
+    this.checkWorldBounds = true;
+    this.outOfBoundsKill = true;
+    this.health = 500;
+    this.body.velocity.x = 160;
+    this.events.onKilled.add(function() {
+        if (this.health > 0) return;
+        shmup.emitter.burst(this.x, this.y);
+        shmup.score += 5000;
+        game.sound.play('explode' + game.rnd.between(1, 6), 0.2);
+    }, this);
+    print('ufo created');
+};
+Ufo.prototype = Object.create(Phaser.Sprite.prototype);
+Ufo.prototype.constructor = Ufo;
+Ufo.prototype.update = function() {
+    this.angle += 120 * game.time.physicsElapsed;
 };
 
 module.exports = Stage;

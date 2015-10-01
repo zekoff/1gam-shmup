@@ -24,6 +24,10 @@ module.exports = {
         game.load.image('powerup_green', 'Power-ups/powerupGreen_bolt.png');
         game.load.image('powerup_red', 'Power-ups/powerupRed_bolt.png');
         game.load.image('star', 'Power-ups/star_gold.png');
+        game.load.image('ufoBlue');
+        game.load.image('ufoGreen');
+        game.load.image('ufoRed');
+        game.load.image('ufoYellow');
         game.load.spritesheet('player_lasers', 'player_lasers.png', 13, 37);
         var i, name;
         ['Black', 'Blue', 'Green', 'Red'].forEach(function(color) {
