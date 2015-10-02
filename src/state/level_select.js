@@ -152,7 +152,8 @@ state.create = function() {
         shmup.data.stage = {
             name: this.selectedStage.stageName,
             difficulty: this.selectedStage.difficulty,
-            enemiesKilled: 0
+            enemiesKilled: 0,
+            index: this.selectedStage.index
         };
         var tween = game.add.tween(this.ship);
         tween.to({

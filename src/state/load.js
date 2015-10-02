@@ -9,6 +9,7 @@ module.exports = {
             e.preventDefault();
         };
         game.load.image('pix');
+        game.stage.backgroundColor = 0x101010;
     },
     create: function() {
         shmup.data = {};

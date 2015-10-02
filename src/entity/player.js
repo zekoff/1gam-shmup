@@ -9,7 +9,6 @@ var Player = function() {
     this.body.collideWorldBounds = true;
 
     this.weapons = [shotgun, gatling, missile];
-    shmup.data.ship.weaponLevels = [1, 1, 1];
     shmup.data.ship.currentWeapon = 0;
     this.weaponUpdate = this.weapons[shmup.data.ship.currentWeapon].bind(this);
     this.chargeTime = 0;

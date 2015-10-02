@@ -125,6 +125,9 @@ Stage.prototype.update = function() {
                 this.stateTween.onComplete.add(function() {
                     print('done');
                     // XXX start stage end state
+                    shmup.data.game.tier++;
+                    shmup.data.game.index = shmup.data.stage.index;
+                    game.state.start('level_select');
                 });
             }
             break;
