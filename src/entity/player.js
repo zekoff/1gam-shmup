@@ -52,7 +52,6 @@ Player.prototype.hit = function() {
             }, this);
         }, this);
     else game.time.events.add(2000, function() {
-        // start continue timer?
         game.state.start('gameover');
     });
 };
