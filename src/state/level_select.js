@@ -23,9 +23,8 @@ Stage.prototype = Object.create(Phaser.Sprite.prototype);
 Stage.prototype.constructor = Stage;
 
 state.create = function() {
-    var background = game.make.image(0, 0, 'starfield');
+    this.background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
     game.add.bitmapText(400, 60, 'font', "STAGE SELECT", 48).anchor.set(0.5);
-
 
     this.stageTiers = [];
     // tier 1
@@ -75,7 +74,6 @@ state.create = function() {
     // line-drawing pass
     for (i = 0; i < 4; i++) {
         this.stageTiers[i].forEach(function(stage) {
-            print(stage);
             var leftStage = this.stageTiers[i + 1][stage.index];
             var rightStage = this.stageTiers[i + 1][stage.index + 1];
             stage.leftLine = game.make.image(stage.x, stage.y, 'pix');
@@ -124,13 +122,98 @@ state.create = function() {
     this.ship.scale.set(0.5);
     this.ship.anchor.set(0.5);
 
-    // enable input for nodes
-
     // add text
-    game.add.bitmapText(10, 450, 'font', "STATUS", 32);
-    // game.add.existing(new WeaponDisplay());
+    game.add.bitmapText(10, 450, 'font', "STATUS", 40);
+    game.add.existing(new WeaponDisplay());
+    game.add.bitmapText(120, 510, 'font', "SCORE: " + shmup.data.ship.score, 20);
+    game.add.bitmapText(120, 540, 'font', "LIVES: " + shmup.data.ship.lives, 20);
+    game.add.bitmapText(120, 570, 'font', "STARS: " + shmup.data.ship.stars + "/20", 20);
+
+    game.add.bitmapText(790, 450, 'font', "STAGE INFO", 40).anchor.set(1, 0);
+    this.stageNameText = game.add.bitmapText(790, 570, 'font', 'NAME: ---', 20);
+    this.stageNameText.anchor.set(1, 0);
+    this.stageDifficultyText = game.add.bitmapText(790, 540, 'font', 'DIFFICULTY: -', 20);
+    this.stageDifficultyText.anchor.set(1, 0);
+    this.stage = null;
+    // create LAUNCH button
+    this.launchButton = game.add.image(790, 488, 'pix');
+    this.launchText = game.add.bitmapText(690, 497, 'font', "LAUNCH", 32);
+    this.launchText.anchor.set(0.5, 0);
+    this.launchText.tint = 0x202020;
+    this.launchButton.anchor.set(1, 0);
+    this.launchButton.width = 210;
+    this.launchButton.height = 39;
+    this.launchButton.tint = GREY;
+    this.launchButton.inputEnabled = true;
+    this.launchButton.events.onInputUp.add(function() {
+        if (!this.selectedStage) return;
+        this.ship.rotation = Math.PI / 2 +
+            game.physics.arcade.angleBetween(this.ship, this.selectedStage);
+        shmup.data.stage = {
+            name: this.selectedStage.stageName,
+            difficulty: this.selectedStage.difficulty,
+            enemiesKilled: 0
+        };
+        var tween = game.add.tween(this.ship);
+        tween.to({
+            x: this.selectedStage.x,
+            y: this.selectedStage.y
+        }, 3000);
+        tween.onComplete.add(function() {
+            game.state.start('main');
+        });
+        tween.start();
+    }, this);
+
+    // set reachable stages
+    if (shmup.data.game.tier == 0) {
+        this.stageTiers[0][0].reachable = true;
+    }
+    else {
+        this.stageTiers[shmup.data.game.tier][shmup.data.game.index].reachable = true;
+        this.stageTiers[shmup.data.game.tier][shmup.data.game.index + 1].reachable = true;
+    }
+
+
+    // enable input for nodes
+    this.stageTiers.forEach(function(tier) {
+        tier.forEach(function(stage) {
+            stage.inputEnabled = true;
+            stage.events.onInputUp.add(function(stage) {
+                this.stageNameText.setText("NAME: " + stage.stageName);
+                this.stageDifficultyText.setText("DIFFICULTY: " + stage.difficulty);
+                // set selected stage only if reachable
+                this.selectedStage = null;
+                this.launchButton.inputEnabled = false;
+                this.launchButton.tint = GREY;
+                this.launchText.tint = 0x202020;
+                if (stage.reachable) {
+                    this.selectedStage = stage;
+                    this.launchButton.inputEnabled = true;
+                    this.launchButton.tint = RED;
+                    this.launchText.tint = 0xffffff;
+                }
+                // do pulse tween
+                if (this.pulseTween) this.pulseTween.stop();
+                this.stageTiers.forEach(function(tier) {
+                    tier.forEach(function(stage) {
+                        stage.height = stage.width = 40;
+                    });
+                });
+                stage.width = stage.height = 40;
+                this.pulseTween = game.add.tween(stage);
+                this.pulseTween.to({
+                    width: 60,
+                    height: 60
+                }, 1000, Phaser.Easing.Sinusoidal.InOut, false, 0, -1, true);
+                this.pulseTween.start();
+            }, this, 0, stage);
+        }, this);
+    }, this);
 };
 
-state.update = function() {};
+state.update = function() {
+    this.background.tilePosition.y += 10 * game.time.physicsElapsed;
+};
 
 module.exports = state;

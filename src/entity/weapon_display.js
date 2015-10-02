@@ -88,7 +88,7 @@ WeaponDisplay.prototype.update = function() {
     this.redBackground.exists = false;
     this.greenBackground.exists = false;
     this.blueBackground.exists = false;
-    switch (shmup.player.currentWeapon) {
+    switch (shmup.data.ship.currentWeapon) {
         case 0:
             this.greenBackground.exists = true;
             break;
