@@ -23,18 +23,18 @@ var WeaponDisplay = function() {
     this.blueBackground.exists = false;
     this.add(this.blueBackground);
     // icons
-    var redIcon = game.make.image(40, 70, 'powerup_red');
-    redIcon.width = 20;
-    redIcon.height = 20;
-    this.add(redIcon);
-    var greenIcon = game.make.image(10, 70, 'powerup_green');
-    greenIcon.width = 20;
-    greenIcon.height = 20;
-    this.add(greenIcon);
-    var blueIcon = game.make.image(70, 70, 'powerup_blue');
-    blueIcon.width = 20;
-    blueIcon.height = 20;
-    this.add(blueIcon);
+    this.redIcon = game.make.image(40, 70, 'powerup_red');
+    this.redIcon.width = 20;
+    this.redIcon.height = 20;
+    this.add(this.redIcon);
+    this.greenIcon = game.make.image(10, 70, 'powerup_green');
+    this.greenIcon.width = 20;
+    this.greenIcon.height = 20;
+    this.add(this.greenIcon);
+    this.blueIcon = game.make.image(70, 70, 'powerup_blue');
+    this.blueIcon.width = 20;
+    this.blueIcon.height = 20;
+    this.add(this.blueIcon);
     // bars
     this.redBars = [];
     this.greenBars = [];
@@ -86,17 +86,23 @@ WeaponDisplay.prototype.update = function() {
     for (i = 0; i < shmup.data.ship.weaponLevels[0]; i++) this.greenBars[i].tint = this.GREEN;
     for (i = 0; i < shmup.data.ship.weaponLevels[2]; i++) this.blueBars[i].tint = this.BLUE;
     this.redBackground.exists = false;
+    this.redIcon.tint = 0x404040;
     this.greenBackground.exists = false;
+    this.greenIcon.tint = 0x404040;
     this.blueBackground.exists = false;
+    this.blueIcon.tint = 0x404040;
     switch (shmup.data.ship.currentWeapon) {
         case 0:
-            this.greenBackground.exists = true;
+            // this.greenBackground.exists = true;
+            this.greenIcon.tint = 0xffffff;
             break;
         case 1:
-            this.redBackground.exists = true;
+            // this.redBackground.exists = true;
+            this.redIcon.tint = 0xffffff;
             break;
         case 2:
-            this.blueBackground.exists = true;
+            // this.blueBackground.exists = true;
+            this.blueIcon.tint = 0xffffff;
             break;
     }
 };
