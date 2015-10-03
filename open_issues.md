@@ -12,10 +12,12 @@
 - Add functionality to title screen state
 - Add challenge mode state
 - Hook up all state transitions
+- Add stage history to shmup.data.game object (array length equals stage number)
+- Make selected weapon bigger instead of using pix background
+- Sound effects and music on stage select screen
 
 ## Bugs
 
 - HUD score pulses on stage start
-- Weapons cycle backwards (I think the click listener is getting added repeatedly)
 
 ## Commit message

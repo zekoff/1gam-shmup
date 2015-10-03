@@ -65,6 +65,7 @@ var Input = function(useGamepad) {
     }
     else {
         this.update = MOUSE_INPUT.bind(this);
+        game.input.mousePointer.rightButton.onDown.removeAll();
         game.input.mousePointer.rightButton.onDown.add(shmup.player.cycleWeapon, shmup.player);
     }
 };
