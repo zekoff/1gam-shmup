@@ -1,6 +1,8 @@
 /* global game, shmup */
 module.exports = {
     create: function() {
+        this.background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
+
         shmup.data.game = {
             tier: 0,
             index: 0,
@@ -19,5 +21,9 @@ module.exports = {
         // create fullscreen button
         // create gamepad button
         game.state.start('level_select');
+    },
+    update: function() {
+        this.background.tilePosition.y += 10 * game.time.physicsElapsed;
+
     }
 };

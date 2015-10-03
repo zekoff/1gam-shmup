@@ -13,10 +13,10 @@ var GREY = 0x404040;
 var DIFFICULTY_COLORS = [GREEN, YELLOW, ORANGE, RED, DARK_RED];
 
 var Stage = function(name, x) {
-    Phaser.Sprite.call(this, game, x, 0, 'pix');
+    Phaser.Sprite.call(this, game, x, 0, 'dotWhite');
     this.stageName = name;
     this.x = x;
-    this.height = this.width = 40;
+    this.height = this.width = 30;
     this.anchor.set(0.5);
 };
 Stage.prototype = Object.create(Phaser.Sprite.prototype);
@@ -136,7 +136,7 @@ state.create = function() {
     this.stageDifficultyText.anchor.set(1, 0);
     this.stage = null;
     // create LAUNCH button
-    this.launchButton = game.add.image(790, 488, 'pix');
+    this.launchButton = game.add.image(790, 488, 'metalPanel');
     this.launchText = game.add.bitmapText(690, 497, 'font', "LAUNCH", 32);
     this.launchText.anchor.set(0.5, 0);
     this.launchText.tint = 0x202020;
@@ -199,10 +199,10 @@ state.create = function() {
                 if (this.pulseTween) this.pulseTween.stop();
                 this.stageTiers.forEach(function(tier) {
                     tier.forEach(function(stage) {
-                        stage.height = stage.width = 40;
+                        stage.height = stage.width = 30;
                     });
                 });
-                stage.width = stage.height = 40;
+                stage.width = stage.height = 30;
                 this.pulseTween = game.add.tween(stage);
                 this.pulseTween.to({
                     width: 60,

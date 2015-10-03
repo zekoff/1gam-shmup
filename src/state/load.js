@@ -33,6 +33,8 @@ module.exports = {
         game.load.image('ufoGreen');
         game.load.image('ufoRed');
         game.load.image('ufoYellow');
+        game.load.image('metalPanel');
+        game.load.image('dotWhite');
         game.load.spritesheet('player_lasers', 'player_lasers.png', 13, 37);
         var i, name;
         ['Black', 'Blue', 'Green', 'Red'].forEach(function(color) {
