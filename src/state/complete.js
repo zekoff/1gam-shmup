@@ -25,7 +25,9 @@ state.create = function() {
     game.time.events.add((toDisplay.length + 2) * 500, function() {
         game.add.bitmapText(400, 550, 'font', "(click to continue)", 16).anchor.set(0.5);
         game.input.onUp.addOnce(function() {
-            game.state.start('level_select');
+            if (shmup.data.game.history.length < 5)
+                game.state.start('level_select');
+            else game.state.start('win');
         });
     });
 };

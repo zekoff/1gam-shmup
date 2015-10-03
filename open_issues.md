@@ -19,6 +19,8 @@
 - Extra boss bullet type: 360 burst
 - Change enemy bullet body to 70% of graphic size
 - Replace level select node graphics
+- Add bonus for leftover lives
+- Remove println and stage skip w/ spacebar
 
 ## Bugs
 

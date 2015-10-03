@@ -13,8 +13,8 @@ var MUSIC_TRACKS = [
 ];
 var MUSIC_VOLUME = 0.1;
 
-var INTRO_LENGTH = 4000;
-var OUTRO_LENGTH = 4000;
+var INTRO_LENGTH = 400;
+var OUTRO_LENGTH = 400;
 var WARP_SPEED = 3000;
 
 // Seed is a string that will be used to init the RNG.
@@ -22,7 +22,7 @@ var WARP_SPEED = 3000;
 var Stage = function(seed, difficulty) {
     var stageNumberText = game.add.bitmapText(400, 150, 'font', "STAGE " + shmup.data.game.history.length, 40);
     stageNumberText.anchor.set(0.5);
-    var stageNameText = game.add.bitmapText(400, 200, 'font', '"' + shmup.data.stage.name + '"', 40);
+    var stageNameText = game.add.bitmapText(400, 200, 'font', '"' + shmup.data.stage.name + '"', 36);
     stageNameText.anchor.set(0.5);
     game.time.events.add(INTRO_LENGTH / 4 * 3, function() {
         game.add.tween(stageNumberText).to({
@@ -74,7 +74,7 @@ Stage.prototype.MAIN = 1;
 Stage.prototype.OUTTRO = 2;
 Stage.prototype.update = function() {
     // XXX debug only
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) game.state.start('complete');
+    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) this.stageState = this.OUTTRO;
 
     this.background.tilePosition.y += this.backgroundSpeed * game.time.physicsElapsed;
     switch (this.stageState) {
