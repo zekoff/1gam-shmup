@@ -18,6 +18,4 @@
 
 ## Bugs
 
-- HUD score pulses on stage start
-
 ## Commit message

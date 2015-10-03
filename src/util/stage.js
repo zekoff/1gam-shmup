@@ -123,8 +123,6 @@ Stage.prototype.update = function() {
                 }, this);
                 this.stateTween.start();
                 this.stateTween.onComplete.add(function() {
-                    print('done');
-                    // XXX start stage end state
                     shmup.data.game.tier++;
                     shmup.data.game.index = shmup.data.stage.index;
                     game.state.start('level_select');
@@ -192,7 +190,6 @@ var Ufo = function() {
         shmup.data.ship.score += 10000;
         game.sound.play('explode' + game.rnd.between(1, 6), 0.2);
     }, this);
-    print('ufo created');
 };
 Ufo.prototype = Object.create(Phaser.Sprite.prototype);
 Ufo.prototype.constructor = Ufo;

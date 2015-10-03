@@ -14,8 +14,7 @@ var Hud = function() {
     this.add(this.scoreText);
     this.add(this.livesText);
     this.add(this.starsText);
-    this.lastFrameScore = 0;
-    this.displayedScore = 0;
+    this.lastFrameScore = this.displayedScore = shmup.data.ship.score;
     this.scoreTween = null;
     this.weaponDisplay = new WeaponDisplay();
     this.boss = null;
