@@ -6,20 +6,15 @@
 
 - Add fullscreen mode
 - Add better bullet graphics for enemies
-- Add game complete state with score summary
 - Add help screen state
 - Add functionality to title screen state
 - Add challenge mode state
 - Hook up all state transitions
-- Make selected weapon bigger instead of using pix background
 - Sound effects and music on stage select screen
 - Add pause
-- Stage intro text during fly-in
-- Gameover text on gameover screen as appropriate
 - Extra boss bullet type: 360 burst
 - Change enemy bullet body to 70% of graphic size
 - Replace level select node graphics
-- Add bonus for leftover lives
 - Remove println and stage skip w/ spacebar
 
 ## Bugs

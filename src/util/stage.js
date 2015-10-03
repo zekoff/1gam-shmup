@@ -13,8 +13,8 @@ var MUSIC_TRACKS = [
 ];
 var MUSIC_VOLUME = 0.1;
 
-var INTRO_LENGTH = 400;
-var OUTRO_LENGTH = 400;
+var INTRO_LENGTH = 4000;
+var OUTRO_LENGTH = 4000;
 var WARP_SPEED = 3000;
 
 // Seed is a string that will be used to init the RNG.

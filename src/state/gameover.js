@@ -13,8 +13,14 @@ state.create = function() {
         game.add.tween(this).to({
             timeToContinue: 0
         }, 10000, null, true).onComplete.add(function() {
-            game.state.start('title');
-        });
+            this.timerText.exists = false;
+            continueText.exists = false;
+            var gameoverText = game.add.bitmapText(400, 300, 'font', 'GAME OVER', 64);
+            gameoverText.anchor.set(0.5);
+            game.time.events.add(3000, function() {
+                game.state.start('title');
+            });
+        }, this);
         game.input.onUp.addOnce(function() {
             shmup.data.ship = {
                 score: 0,
