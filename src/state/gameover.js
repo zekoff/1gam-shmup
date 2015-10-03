@@ -21,7 +21,9 @@ state.create = function() {
                 weaponLevels: [1, 1, 1],
                 currentWeapon: 0,
                 stars: 0,
-                lives: 2
+                lives: 2,
+                enemiesKilled: 0,
+                ufosKilled: 0
             };
             game.state.start('main');
         });

@@ -20,6 +20,19 @@ var WARP_SPEED = 3000;
 // Seed is a string that will be used to init the RNG.
 // Difficulty is a number 1-5 for normal play, higher for challenge modes
 var Stage = function(seed, difficulty) {
+    var stageNumberText = game.add.bitmapText(400, 150, 'font', "STAGE " + shmup.data.game.history.length, 40);
+    stageNumberText.anchor.set(0.5);
+    var stageNameText = game.add.bitmapText(400, 200, 'font', '"' + shmup.data.stage.name + '"', 40);
+    stageNameText.anchor.set(0.5);
+    game.time.events.add(INTRO_LENGTH / 4 * 3, function() {
+        game.add.tween(stageNumberText).to({
+            alpha: 0
+        }, INTRO_LENGTH / 4, null, true);
+        game.add.tween(stageNameText).to({
+            alpha: 0
+        }, INTRO_LENGTH / 4, null, true);
+    });
+
     this.difficulty = difficulty;
     game.rnd.sow([seed]);
     this.trackName = game.rnd.pick(MUSIC_TRACKS);
@@ -35,7 +48,7 @@ var Stage = function(seed, difficulty) {
     this.waves.push(new BossWave(difficulty));
     shmup.data.stage.totalEnemies = 0;
     shmup.data.stage.totalUfos = 0;
-    shmup.data.stage.ufosKilled = 0;
+    shmup.data.ship.ufosKilled = 0;
     this.waves.forEach(function(wave) {
         if (wave.numberInWave)
             shmup.data.stage.totalEnemies += Math.ceil(wave.numberInWave);
@@ -193,7 +206,7 @@ var Ufo = function() {
     this.body.velocity.x = 160;
     this.events.onKilled.add(function() {
         if (this.health > 0) return;
-        shmup.data.stage.ufosKilled++;
+        shmup.data.ship.ufosKilled++;
         shmup.emitter.burst(this.x, this.y);
         shmup.data.ship.score += 10000;
         game.sound.play('explode' + game.rnd.between(1, 6), 0.2);

@@ -21,7 +21,7 @@ var Enemy = function(imageKey, healthRating, movementFunction, shotFunction) {
         if (this.health > 0) return;
         shmup.emitter.burst(this.x, this.y);
         shmup.data.ship.score += healthRating * 100;
-        shmup.data.stage.enemiesKilled++;
+        shmup.data.ship.enemiesKilled++;
         var pickupChance = 0.9 - (shmup.data.ship.weaponLevels.reduce(function(a, b) {
             return a + b;
         }) / 20);

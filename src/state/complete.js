@@ -4,9 +4,9 @@ var state = {};
 state.create = function() {
     this.background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
     game.add.bitmapText(400, 150, 'font', "RESULTS", 48).anchor.set(0.5);
-    var killed = shmup.data.stage.enemiesKilled;
+    var killed = shmup.data.ship.enemiesKilled;
     var total = shmup.data.stage.totalEnemies;
-    var ufoKilled = shmup.data.stage.ufosKilled;
+    var ufoKilled = shmup.data.ship.ufosKilled;
     var ufoTotal = shmup.data.stage.totalUfos;
     var toDisplay = [
         'Stage ' + shmup.data.game.history.length,
