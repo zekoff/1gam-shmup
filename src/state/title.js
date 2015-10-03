@@ -4,6 +4,7 @@ module.exports = {
         shmup.data.game = {
             tier: 0,
             index: 0,
+            history: []
         };
         shmup.data.ship = {
             score: 0,

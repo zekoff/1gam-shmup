@@ -155,6 +155,7 @@ state.create = function() {
             enemiesKilled: 0,
             index: this.selectedStage.index
         };
+        shmup.data.game.history.push(shmup.data.stage);
         var tween = game.add.tween(this.ship);
         tween.to({
             x: this.selectedStage.x,

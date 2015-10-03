@@ -33,12 +33,16 @@ var Stage = function(seed, difficulty) {
     for (i = 0; i < numWaves; i++)
         this.waves.push(new Wave(difficulty));
     this.waves.push(new BossWave(difficulty));
+    shmup.data.stage.totalEnemies = 0;
+    shmup.data.stage.totalUfos = 0;
+    shmup.data.stage.ufosKilled = 0;
     this.waves.forEach(function(wave) {
-        shmup.data.stage.totalEnemies += wave.numberInWave;
+        if (wave.numberInWave)
+            shmup.data.stage.totalEnemies += Math.ceil(wave.numberInWave);
     });
     // Bonus UFOs
     var stageLengthSeconds = numWaves * this.secondsBetweenWaves;
-    this.numUfos = difficulty;
+    shmup.data.stage.totalUfos = this.numUfos = difficulty;
     this.ufosSeen = 0;
     this.timeBetweenUfos = stageLengthSeconds / this.numUfos;
 
@@ -56,6 +60,9 @@ Stage.prototype.INTRO = 0;
 Stage.prototype.MAIN = 1;
 Stage.prototype.OUTTRO = 2;
 Stage.prototype.update = function() {
+    // XXX debug only
+    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) game.state.start('complete');
+
     this.background.tilePosition.y += this.backgroundSpeed * game.time.physicsElapsed;
     switch (this.stageState) {
         case this.INTRO:
@@ -125,7 +132,7 @@ Stage.prototype.update = function() {
                 this.stateTween.onComplete.add(function() {
                     shmup.data.game.tier++;
                     shmup.data.game.index = shmup.data.stage.index;
-                    game.state.start('level_select');
+                    game.state.start('complete');
                 });
             }
             break;
@@ -186,6 +193,7 @@ var Ufo = function() {
     this.body.velocity.x = 160;
     this.events.onKilled.add(function() {
         if (this.health > 0) return;
+        shmup.data.stage.ufosKilled++;
         shmup.emitter.burst(this.x, this.y);
         shmup.data.ship.score += 10000;
         game.sound.play('explode' + game.rnd.between(1, 6), 0.2);
