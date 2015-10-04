@@ -5,6 +5,7 @@
 ## Todo
 
 - Add pause
+- Add live version link
 
 ## Bugs
 

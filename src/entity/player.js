@@ -97,7 +97,7 @@ var gatling = function(alternate) {
         shot.rotation = 0;
         shot.update = function() {};
         shot.frame = 2;
-        shot.power = this.chargeTime * 100 + (shmup.data.ship.weaponLevels[1] * 50);
+        shot.power = this.chargeTime * 150 + (shmup.data.ship.weaponLevels[1] * 50);
         shot.height = 96 * this.chargeTime;
         shot.width = 48 * this.chargeTime;
         this.chargeTime = 0;
@@ -122,7 +122,7 @@ var gatling = function(alternate) {
     shot.rotation = 0;
     shot.update = function() {};
     shot.frame = 2;
-    shot.power = 10;
+    shot.power = 12;
 };
 
 // Seeking weapon. Alternate fire increases speed but deactivates seeking

@@ -1,5 +1,7 @@
 # 1gam-shmup
 
+Live version link placeholder
+
 ## Instructions
 
 **Normal mode**: clear stages, kill enemies, hunt UFOs, and collect stars to
