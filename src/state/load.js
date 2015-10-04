@@ -14,7 +14,7 @@ module.exports = {
     create: function() {
         shmup.data = {};
         shmup.data.global = {};
-        shmup.data.global.gamepad = false;
+        shmup.data.global.gamepad = true;
         
         game.load.audio('burning_engines', 'Music/burning_engines.ogg');
         game.load.audio('challenge', 'Music/challenge.ogg');

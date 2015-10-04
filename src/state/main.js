@@ -14,16 +14,10 @@ state.create = function() {
     shmup.enemies = game.add.group();
     shmup.pickups = game.add.group();
     shmup.stage = new Stage(shmup.data.stage.name, shmup.data.stage.difficulty);
-
     shmup.player = new Player();
     game.add.existing(shmup.player);
     shmup.input = new Input(shmup.data.global.gamepad);
     shmup.hud = new Hud();
-
-    // game.input.onUp.addOnce(function() {
-    //     game.scale.startFullScreen();
-    // });
-
 };
 
 state.update = function() {
