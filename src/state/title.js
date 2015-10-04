@@ -78,6 +78,13 @@ module.exports = {
         gamepadButton.inputEnabled = true;
         deactivateGamepad();
         // create help button
+        var helpButton = game.add.image(740, 10, 'metalPanel');
+        helpButton.width = helpButton.height = 50;
+        helpButton.inputEnabled = true;
+        helpButton.events.onInputUp.add(function(){
+            window.open("https://github.com/zekoff/1gam-shmup/blob/master/README.md");
+        });
+        game.add.bitmapText(767, 43, 'font', "?", 36).anchor.set(0.5);
     },
     update: function() {
         this.background.tilePosition.y += 10 * game.time.physicsElapsed;
