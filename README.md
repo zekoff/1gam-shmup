@@ -1,6 +1,6 @@
 # 1gam-shmup
 
-Live version link placeholder
+[Live version](http://zekoff.com/1gam-shmup/)
 
 ## Instructions
 
