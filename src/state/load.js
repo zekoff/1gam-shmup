@@ -35,6 +35,7 @@ module.exports = {
         game.load.image('ufoYellow');
         game.load.image('metalPanel');
         game.load.image('dotWhite');
+        game.load.image('title_image');
         game.load.spritesheet('player_lasers', 'player_lasers.png', 13, 37);
         game.load.spritesheet('enemy_lasers', 'enemy_lasers.png', 48, 46);
         var i, name;
