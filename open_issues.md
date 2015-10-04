@@ -9,8 +9,8 @@
 - Hook up all state transitions
 - Sound effects and music on stage select screen
 - Add pause
-- Extra boss bullet type: 360 burst
 - Remove println and stage skip w/ spacebar
+- Add loading screen
 
 ## Bugs
 

@@ -107,10 +107,41 @@ var smallAimed = function() {
         shot.revive();
         game.physics.arcade.moveToObject(shot, shmup.player, 300);
     }
-
+};
+var circleBurst = function() {
+    this.shotTimer += game.time.physicsElapsed;
+    if (this.shotTimer > 3 && game.rnd.frac() < 0.05) {
+        this.shotTimer = 0;
+        for (var i = 0; i < 12; i++) {
+            var shot = shmup.enemyBullets.getBullet();
+            shot.tint = 0xff8080;
+            shot.height = shot.width = 15;
+            shot.x = this.x;
+            shot.y = this.y;
+            shot.body.reset(shot.x, shot.y);
+            shot.body.setSize(shot.width * SHOT_BODY_SCALE, shot.height * SHOT_BODY_SCALE);
+            shot.revive();
+            game.physics.arcade.velocityFromAngle(90 + (30 * i), 125, shot.body.velocity);
+        }
+    }
+};
+var singleRandom = function() {
+    this.shotTimer += game.time.physicsElapsed;
+    if (this.shotTimer > .75 && game.rnd.frac() < .05) {
+        this.shotTimer = 0;
+        var shot = shmup.enemyBullets.getBullet();
+        shot.x = this.x;
+        shot.y = this.y;
+        shot.width = shot.height = 30;
+        shot.tint = 0xff0000;
+        shot.body.reset(shot.x, shot.y);
+        shot.body.setSize(shot.width * SHOT_BODY_SCALE, shot.height * SHOT_BODY_SCALE);
+        shot.revive();
+        game.physics.arcade.velocityFromAngle(90 + (game.rnd.between(-30, 30)), 200, shot.body.velocity);
+    }
 };
 
 module.exports = {
     enemyShots: [straight, aimed, fatAimed, burst, doubleStraight],
-    bossShots: [aimed, fatAimed, burst, smallAimed]
+    bossShots: [aimed, fatAimed, burst, smallAimed, circleBurst, singleRandom]
 };

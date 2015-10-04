@@ -37,10 +37,4 @@ state.update = function() {
     });
 };
 
-state.render = function() {
-    shmup.enemyBullets.forEachAlive(function(b) {
-        game.debug.body(b);
-    });
-};
-
 module.exports = state;
