@@ -21,6 +21,9 @@ BulletPool.prototype.getBullet = function() {
     }
     shot.height = 24;
     shot.width = 8;
+    if (this.key == 'enemy_lasers') shot.update = function() {
+        this.angle += 120 * game.time.physicsElapsed;
+    };
     return shot;
 };
 

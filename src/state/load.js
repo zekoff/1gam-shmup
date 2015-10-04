@@ -15,7 +15,7 @@ module.exports = {
         shmup.data = {};
         shmup.data.global = {};
         shmup.data.global.gamepad = true;
-        
+
         game.load.audio('burning_engines', 'Music/burning_engines.ogg');
         game.load.audio('challenge', 'Music/challenge.ogg');
         game.load.audio('downtown', 'Music/downtown.ogg');
@@ -36,6 +36,7 @@ module.exports = {
         game.load.image('metalPanel');
         game.load.image('dotWhite');
         game.load.spritesheet('player_lasers', 'player_lasers.png', 13, 37);
+        game.load.spritesheet('enemy_lasers', 'enemy_lasers.png', 48, 46);
         var i, name;
         ['Black', 'Blue', 'Green', 'Red'].forEach(function(color) {
             for (i = 1; i < 6; i++) {

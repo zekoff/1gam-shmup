@@ -9,7 +9,7 @@ var state = {};
 
 state.create = function() {
     shmup.emitter = new Emitter();
-    shmup.enemyBullets = new BulletPool('pix');
+    shmup.enemyBullets = new BulletPool('enemy_lasers');
     shmup.playerBullets = new BulletPool('player_lasers');
     shmup.enemies = game.add.group();
     shmup.pickups = game.add.group();
@@ -38,7 +38,9 @@ state.update = function() {
 };
 
 state.render = function() {
-    // game.debug.body(shmup.player);
+    shmup.enemyBullets.forEachAlive(function(b) {
+        game.debug.body(b);
+    });
 };
 
 module.exports = state;

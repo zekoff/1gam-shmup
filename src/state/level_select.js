@@ -146,8 +146,8 @@ state.create = function() {
     this.launchButton.tint = GREY;
     this.launchButton.inputEnabled = true;
     this.launchButton.events.onInputUp.add(function() {
-        this.launchButton.events.onInputUp.removeAll();
         if (!this.selectedStage) return;
+        this.launchButton.events.onInputUp.removeAll();
         this.ship.rotation = Math.PI / 2 +
             game.physics.arcade.angleBetween(this.ship, this.selectedStage);
         shmup.data.stage = {

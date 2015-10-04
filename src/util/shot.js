@@ -1,5 +1,7 @@
 /* global shmup, game */
 
+var SHOT_BODY_SCALE = .7;
+
 var straight = function() {
     this.shotTimer += game.time.physicsElapsed;
     if (this.shotTimer > .75 && game.rnd.frac() < .05) {
@@ -7,9 +9,10 @@ var straight = function() {
         var shot = shmup.enemyBullets.getBullet();
         shot.x = this.x;
         shot.y = this.y;
-        shot.width = shot.height = 15;
+        shot.width = shot.height = 30;
         shot.tint = 0xff0000;
         shot.body.reset(shot.x, shot.y);
+        shot.body.setSize(shot.width * SHOT_BODY_SCALE, shot.height * SHOT_BODY_SCALE);
         shot.revive();
         shot.body.velocity.x = 0;
         shot.body.velocity.y = 250;
@@ -25,6 +28,7 @@ var aimed = function() {
         shot.x = this.x;
         shot.y = this.y;
         shot.body.reset(shot.x, shot.y);
+        shot.body.setSize(shot.width * SHOT_BODY_SCALE, shot.height * SHOT_BODY_SCALE);
         shot.revive();
         game.physics.arcade.moveToObject(shot, shmup.player, 300);
     }
@@ -40,6 +44,7 @@ var fatAimed = function() {
         shot.x = this.x;
         shot.y = this.y;
         shot.body.reset(shot.x, shot.y);
+        shot.body.setSize(shot.width * SHOT_BODY_SCALE, shot.height * SHOT_BODY_SCALE);
         shot.revive();
         game.physics.arcade.moveToObject(shot, shmup.player, 200);
     }
@@ -55,6 +60,7 @@ var burst = function() {
             shot.x = this.x;
             shot.y = this.y;
             shot.body.reset(shot.x, shot.y);
+            shot.body.setSize(shot.width * SHOT_BODY_SCALE, shot.height * SHOT_BODY_SCALE);
             shot.revive();
             game.physics.arcade.velocityFromAngle(90 + (15 * i), 200, shot.body.velocity);
         }
@@ -65,20 +71,22 @@ var doubleStraight = function() {
     if (this.shotTimer > .75 && game.rnd.frac() < .05) {
         this.shotTimer = 0;
         var shot = shmup.enemyBullets.getBullet();
-        shot.x = this.x - 10;
+        shot.x = this.x - 20;
         shot.y = this.y;
-        shot.width = shot.height = 15;
+        shot.width = shot.height = 20;
         shot.tint = 0xff0000;
         shot.body.reset(shot.x, shot.y);
+        shot.body.setSize(shot.width * SHOT_BODY_SCALE, shot.height * SHOT_BODY_SCALE);
         shot.revive();
         shot.body.velocity.x = 0;
         shot.body.velocity.y = 250;
         shot = shmup.enemyBullets.getBullet();
-        shot.x = this.x + 10;
+        shot.x = this.x + 20;
         shot.y = this.y;
-        shot.width = shot.height = 15;
+        shot.width = shot.height = 20;
         shot.tint = 0xff0000;
         shot.body.reset(shot.x, shot.y);
+        shot.body.setSize(shot.width * SHOT_BODY_SCALE, shot.height * SHOT_BODY_SCALE);
         shot.revive();
         shot.body.velocity.x = 0;
         shot.body.velocity.y = 250;
@@ -95,6 +103,7 @@ var smallAimed = function() {
         shot.y = this.y;
         shot.height = shot.width = 20;
         shot.body.reset(shot.x, shot.y);
+        shot.body.setSize(shot.width * SHOT_BODY_SCALE, shot.height * SHOT_BODY_SCALE);
         shot.revive();
         game.physics.arcade.moveToObject(shot, shmup.player, 300);
     }
