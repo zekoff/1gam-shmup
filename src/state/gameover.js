@@ -4,6 +4,14 @@ var state = {};
 
 state.create = function() {
     this.background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
+    if (shmup.data.game.challenge) {
+        var gameoverText = game.add.bitmapText(400, 300, 'font', 'GAME OVER', 64);
+        gameoverText.anchor.set(0.5);
+        game.time.events.add(3000, function() {
+            game.state.start('title');
+        });
+        return;
+    }
     var continueText = game.add.bitmapText(400, 250, 'font', "CONTINUE?", 48);
     continueText.anchor.set(0.5);
     this.timeToContinue = 9.99;

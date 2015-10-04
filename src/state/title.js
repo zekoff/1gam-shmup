@@ -6,8 +6,11 @@ var ORANGE = 0xac8039;
 var RED = 0xac3939;
 var DARK_RED = 0xcc2929;
 var GREY = 0x404040;
+var MUSIC_VOLUME = 0.2;
 module.exports = {
     create: function() {
+        if (shmup.music) shmup.music.stop();
+        shmup.music = game.sound.play('monotolic', MUSIC_VOLUME, true);
         this.background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
         shmup.data.game = {
             tier: 0,
@@ -81,7 +84,7 @@ module.exports = {
         var helpButton = game.add.image(740, 10, 'metalPanel');
         helpButton.width = helpButton.height = 50;
         helpButton.inputEnabled = true;
-        helpButton.events.onInputUp.add(function(){
+        helpButton.events.onInputUp.add(function() {
             window.open("https://github.com/zekoff/1gam-shmup/blob/master/README.md");
         });
         game.add.bitmapText(767, 43, 'font', "?", 36).anchor.set(0.5);

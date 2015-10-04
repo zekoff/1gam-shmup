@@ -9,9 +9,18 @@ module.exports = {
             e.preventDefault();
         };
         game.load.image('pix');
+        game.load.image('ship');
         game.stage.backgroundColor = 0x101010;
     },
     create: function() {
+        var preloadSprite = game.add.sprite(400, 250, 'ship');
+        preloadSprite.anchor.set(0.5);
+        game.add.text(400, 500, "LOADING...", {
+            fill: 'white',
+            font: '36pt Arial'
+        }).anchor.set(0.5);
+        game.load.setPreloadSprite(preloadSprite, 1);
+
         shmup.data = {};
         shmup.data.global = {};
         shmup.data.global.gamepad = true;
@@ -21,7 +30,8 @@ module.exports = {
         game.load.audio('downtown', 'Music/downtown.ogg');
         game.load.audio('ftl', 'Music/ftl.ogg');
         game.load.audio('grand_prix', 'Music/grand_prix.ogg');
-        game.load.image('ship');
+        game.load.audio('monotolic', 'Music/monotolic.ogg');
+        game.load.audio('digital_frontier', 'Music/digital_frontier.ogg');
         game.load.image('starfield');
         game.load.image('explosion');
         game.load.image('laser', 'Lasers/laserGreen02.png');

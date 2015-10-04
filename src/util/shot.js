@@ -23,8 +23,8 @@ var aimed = function() {
     if (this.shotTimer > 1.5 && game.rnd.frac() < .02) {
         this.shotTimer = 0;
         var shot = shmup.enemyBullets.getBullet();
-        shot.tint = 0xff80ff;
-        shot.height = shot.width = 15;
+        shot.tint = 0xffa0ff;
+        shot.height = shot.width = 25;
         shot.x = this.x;
         shot.y = this.y;
         shot.body.reset(shot.x, shot.y);
@@ -94,7 +94,7 @@ var doubleStraight = function() {
 };
 var smallAimed = function() {
     this.shotTimer += game.time.physicsElapsed;
-    if (this.shotTimer > 0.5) {
+    if (this.shotTimer > 0.5 && game.rnd.frac() < .02) {
         // add shots
         this.shotTimer = 0;
         var shot = shmup.enemyBullets.getBullet();

@@ -20,7 +20,8 @@ var WARP_SPEED = 3000;
 // Seed is a string that will be used to init the RNG.
 // Difficulty is a number 1-5 for normal play, higher for challenge modes
 var Stage = function(seed, difficulty) {
-    var stageNumberText = game.add.bitmapText(400, 150, 'font', "STAGE " + shmup.data.game.history.length, 40);
+    var stageNumber = shmup.data.game.challenge ? "CHALLENGE MODE" : "STAGE " + shmup.data.game.history.length;
+    var stageNumberText = game.add.bitmapText(400, 150, 'font', stageNumber, 40);
     stageNumberText.anchor.set(0.5);
     var stageNameText = game.add.bitmapText(400, 200, 'font', '"' + shmup.data.stage.name + '"', 36);
     stageNameText.anchor.set(0.5);
@@ -73,9 +74,6 @@ Stage.prototype.INTRO = 0;
 Stage.prototype.MAIN = 1;
 Stage.prototype.OUTTRO = 2;
 Stage.prototype.update = function() {
-    // XXX debug only
-    if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) this.stageState = this.OUTTRO;
-
     this.background.tilePosition.y += this.backgroundSpeed * game.time.physicsElapsed;
     switch (this.stageState) {
         case this.INTRO:

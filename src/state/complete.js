@@ -8,8 +8,9 @@ state.create = function() {
     var total = shmup.data.stage.totalEnemies;
     var ufoKilled = shmup.data.ship.ufosKilled;
     var ufoTotal = shmup.data.stage.totalUfos;
+    var stageNumber = shmup.data.game.challenge ? "CHALLENGE MODE" : "STAGE " + shmup.data.game.history.length;
     var toDisplay = [
-        'Stage ' + shmup.data.game.history.length,
+        stageNumber,
         '"' + shmup.data.stage.name + '"',
         'Difficulty: ' + shmup.data.stage.difficulty,
         'Enemies destroyed: ' + killed + '/' + total + ' (' + Math.floor(killed / total * 100) + "%)",
@@ -25,7 +26,8 @@ state.create = function() {
     game.time.events.add((toDisplay.length + 2) * 500, function() {
         game.add.bitmapText(400, 550, 'font', "(click to continue)", 16).anchor.set(0.5);
         game.input.onUp.addOnce(function() {
-            if (shmup.data.game.history.length < 5)
+            if (shmup.data.game.challenge) game.state.start('title');
+            else if (shmup.data.game.history.length < 5)
                 game.state.start('level_select');
             else game.state.start('win');
         });

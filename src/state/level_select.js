@@ -11,6 +11,7 @@ var RED = 0xac3939;
 var DARK_RED = 0xcc2929;
 var GREY = 0x404040;
 var DIFFICULTY_COLORS = [GREEN, YELLOW, ORANGE, RED, DARK_RED];
+var MUSIC_VOLUME = 0.1;
 
 var Stage = function(name, x) {
     Phaser.Sprite.call(this, game, x, 0, 'dotWhite');
@@ -23,6 +24,8 @@ Stage.prototype = Object.create(Phaser.Sprite.prototype);
 Stage.prototype.constructor = Stage;
 
 state.create = function() {
+    if (shmup.music) shmup.music.stop();
+    shmup.music = game.sound.play('digital_frontier', MUSIC_VOLUME, true);
     this.background = game.add.tileSprite(0, 0, 800, 600, 'starfield');
     game.add.bitmapText(400, 60, 'font', "STAGE SELECT", 48).anchor.set(0.5);
 
